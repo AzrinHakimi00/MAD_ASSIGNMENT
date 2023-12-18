@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "767458956286",
+    "project_id": "mad-assignment-1a67d",
+    "storage_bucket": "mad-assignment-1a67d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:767458956286:android:709bf7af11be6ebbe8e6af",
+        "android_client_info": {
+          "package_name": "com.example.mad_assignment"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAe-x2bgDii6UbddrNaY42ekXb5ZmKAgW4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
