@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomePage.HomeFragment">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/weatherWidget"
+            android:layout_width="154dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="44dp"
+            android:background="@drawable/rouded_corner"
+            android:backgroundTint="#B5E48C"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/gameWidget"
+            android:layout_width="168dp"
+            android:layout_height="262dp"
+            android:layout_marginStart="27dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/rouded_corner"
+            android:backgroundTint="#168AAD"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/activityTrackerWidget"
+            app:layout_constraintTop_toBottomOf="@+id/AirQualityWidget">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/AirQualityWidget"
+            android:layout_width="166dp"
+            android:layout_height="163dp"
+            android:layout_marginTop="44dp"
+            android:layout_marginEnd="28dp"
+            android:background="@drawable/rouded_corner"
+            android:backgroundTint="#FFF065"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.838"
+            app:layout_constraintStart_toEndOf="@+id/weatherWidget"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/activityTrackerWidget"
+            android:layout_width="156dp"
+            android:layout_height="223dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/rouded_corner"
+            android:backgroundTint="#ADABA5"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/weatherWidget">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="320dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/rouded_corner"
+            android:backgroundTint="@color/black"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activityTrackerWidget">
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</FrameLayout>
