@@ -1,4 +1,4 @@
-package com.example.mad_assignment;
+package com.example.mad_assignment.AccountManagement;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.mad_assignment.HomePage.MainPage;
+import com.example.mad_assignment.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -87,7 +89,7 @@ public class First_page extends AppCompatActivity {
 
 
         if(firebaseAuth.getCurrentUser() != null){
-            startActivity(new Intent(First_page.this,HomePage.class));
+            startActivity(new Intent(First_page.this, MainPage.class));
             finish();
         }
 
@@ -137,7 +139,7 @@ public class First_page extends AppCompatActivity {
 
                     database.getReference().child("Users").child(user.getUid()).setValue(map);
 
-                    startActivity(new Intent(First_page.this,HomePage.class));
+                    startActivity(new Intent(First_page.this, MainPage.class));
                 }
                 else{
                     Toast.makeText(First_page.this,"Something went wrong",Toast.LENGTH_LONG).show();

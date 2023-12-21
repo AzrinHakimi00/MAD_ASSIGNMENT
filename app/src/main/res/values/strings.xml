@@ -2,4 +2,10 @@
     <string name="app_name">MADEarthGuard</string>
     <string name="your_web_client_id" />
     <string name="default_web_client_id">767458956286-i3v9p9gv1495fntfnke9o4o5v37ifh4q.apps.googleusercontent.com</string>
+    <string name="title_activity_home">Home</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

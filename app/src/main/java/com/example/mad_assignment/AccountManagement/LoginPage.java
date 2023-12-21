@@ -1,4 +1,4 @@
-package com.example.mad_assignment;
+package com.example.mad_assignment.AccountManagement;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.mad_assignment.HomePage.MainPage;
+import com.example.mad_assignment.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -78,7 +80,7 @@ public class LoginPage extends AppCompatActivity {
                                     map.put("email", email);
                                     map.put("password", password);
                                     database.getReference().child("users").setValue(map);
-                                    startActivity(new Intent(LoginPage.this,HomePage.class));
+                                    startActivity(new Intent(LoginPage.this, MainPage.class));
                                 }
                                 else{
                                     Toast.makeText(getApplicationContext()
