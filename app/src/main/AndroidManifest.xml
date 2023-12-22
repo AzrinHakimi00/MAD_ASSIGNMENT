@@ -13,6 +13,9 @@
         android:theme="@style/Theme.MAD_ASSIGNMENT"
         tools:targetApi="31">
         <activity
+            android:name=".AccountManagement.ResetPasswordPage"
+            android:exported="false" />
+        <activity
             android:name=".AccountManagement.VerificationPage"
             android:exported="false" />
         <activity
@@ -33,9 +36,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".AccountManagement.MainActivity"
-            android:exported="false" />
     </application>
 
 </manifest>

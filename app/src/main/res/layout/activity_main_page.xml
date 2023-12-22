@@ -29,6 +29,10 @@
             android:layout_weight="0.1"
             app:menu="@menu/bottom_menu"
             android:background="@drawable/bot_nav_corner"
+            app:itemIconTint="@color/bot_navi_indicator_style"
+            app:itemTextColor="@color/bot_navi_indicator_style"
+            android:animateLayoutChanges="true"
+
             />
 
     </LinearLayout>

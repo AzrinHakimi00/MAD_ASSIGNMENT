@@ -48,7 +48,8 @@ android:background="@drawable/bg_gradient">
             android:layout_marginBottom="30dp"
             android:fontFamily="@font/inriasansbold"
             android:text="Sign Up"
-            android:textSize="40sp" />
+            android:textSize="40sp"
+            android:textColor="@color/black"/>
 
         <EditText
             android:id="@+id/ETusername"
@@ -56,6 +57,7 @@ android:background="@drawable/bg_gradient">
             android:layout_height="45dp"
             android:background="@drawable/rouded_corner"
             android:backgroundTint="@color/white"
+            android:textColor="@color/black"
             android:hint="Usename"
             android:inputType="textEmailAddress"
             android:paddingLeft="10dp" />
@@ -67,6 +69,7 @@ android:background="@drawable/bg_gradient">
             android:layout_marginTop="20dp"
             android:background="@drawable/rouded_corner"
             android:backgroundTint="@color/white"
+            android:textColor="@color/black"
             android:hint="Email"
             android:inputType="textEmailAddress"
             android:paddingLeft="10dp" />
@@ -77,6 +80,7 @@ android:background="@drawable/bg_gradient">
             android:layout_height="45dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/rouded_corner"
+            android:textColor="@color/black"
             android:backgroundTint="@color/white"
             android:hint="Password"
             android:inputType="textPassword"
@@ -88,6 +92,7 @@ android:background="@drawable/bg_gradient">
             android:layout_height="45dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/rouded_corner"
+            android:textColor="@color/black"
             android:backgroundTint="@color/white"
             android:hint="Confirm password"
             android:inputType="textPassword"
@@ -104,7 +109,8 @@ android:background="@drawable/bg_gradient">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -117,7 +123,9 @@ android:background="@drawable/bg_gradient">
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:text="Login here" />
+                android:text="Login here"
+                android:textStyle="bold"
+                android:textColor="#001485"/>
 
 
         </LinearLayout>

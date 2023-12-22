@@ -4,15 +4,18 @@
     <item
         android:id="@+id/HomeDest"
         android:title="Home"
-        android:icon="@drawable/home_ic"/>
+        android:icon="@drawable/home_ic"
+      />
 
     <item
         android:id="@+id/ForumDest"
         android:title="Forum"
-        android:icon="@drawable/forum_ic"/>
+        android:icon="@drawable/forum_ic"
+        />
 
     <item
         android:id="@+id/SettingDest"
         android:title="Setting"
-        android:icon="@drawable/setting_ic"/>
+        android:icon="@drawable/setting_ic"
+       />
 </menu>
