@@ -16,10 +16,11 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/FCVmainpage"
-            android:name="com.example.mad_assignment.HomePage.HomeFragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.9"
+            android:layout_weight="1"
+            app:defaultNavHost="true"
             app:navGraph="@navigation/bottom_bar_nav"/>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView

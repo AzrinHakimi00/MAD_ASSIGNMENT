@@ -9,5 +9,16 @@
         android:id="@+id/HomeDest"
         android:name="com.example.mad_assignment.HomePage.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+    </fragment>
+    <fragment
+        android:id="@+id/SettingDest"
+        android:name="com.example.mad_assignment.HomePage.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" />
+    <fragment
+        android:id="@+id/ForumDest"
+        android:name="com.example.mad_assignment.HomePage.ForumFragment"
+        android:label="fragment_forum"
+        tools:layout="@layout/fragment_forum" />
 </navigation>
