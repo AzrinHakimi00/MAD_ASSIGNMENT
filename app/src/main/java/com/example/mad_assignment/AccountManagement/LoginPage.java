@@ -77,10 +77,10 @@ public class LoginPage extends AppCompatActivity {
                             else{
 
                                 if(firebaseAuth.getCurrentUser().isEmailVerified()){
-                                    HashMap<String,String> map = new HashMap<>();
-                                    map.put("email", email);
-                                    map.put("password", password);
-                                    database.getReference().child("users").setValue(map);
+                                   // HashMap<String,String> map = new HashMap<>();
+                                   // map.put("email", email);
+                                   // map.put("password", password);
+                                   // database.getReference().child("Users").setValue(map);
                                     startActivity(new Intent(LoginPage.this, MainPage.class));
                                 }
                                 else{

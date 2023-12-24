@@ -95,7 +95,7 @@ public class SignUpPage extends AppCompatActivity {
 
                                             FirebaseUser user = firebaseAuth.getCurrentUser();
                                             database = FirebaseDatabase.getInstance();
-                                            reference = database.getReference("Users").child(user.getUid());
+                                            reference = database.getReference("Users Account").child(user.getUid());
 
                                             HashMap<String,String> map = new HashMap<>();
                                             map.put("usename",username);

@@ -1,6 +1,9 @@
 package com.example.mad_assignment.HomePage;
 
+import android.content.Context;
 import android.content.Intent;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,14 +17,32 @@ import android.widget.Button;
 
 import com.example.mad_assignment.AccountManagement.First_page;
 import com.example.mad_assignment.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.widget.TextView;
+
+import androidx.core.app.ActivityCompat;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment{
+
+    TextView address;
+    MainPage mainPage;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -73,8 +94,26 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Button logout = view.findViewById(R.id.logoutBtn);
+        FloatingActionButton logout = view.findViewById(R.id.logoutBtn);
+
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        DatabaseReference reference = firebaseDatabase.getReference("Users Location").child(user.getUid()).child("State");
+        address = view.findViewById(R.id.address);
+
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String country = snapshot.getValue(String.class);
+                address.setText(country);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +122,12 @@ public class HomeFragment extends Fragment {
                 userSignout();
             }
         });
+
+        //String address = getArguments().getString("CurrentLocation", "Default value if not found");
+
+
+
+
 
     }
 
@@ -93,4 +138,8 @@ public class HomeFragment extends Fragment {
         startActivity(intent);
 
     }
+
+
+
+
 }
