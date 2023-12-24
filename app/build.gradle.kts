@@ -51,6 +51,8 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("com.google.android.gms:play-services-location:21.0.1")
 
+    implementation ("com.android.volley:volley:1.2.1")
+
     implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
 
     // Add the dependency for the Firebase Authentication library

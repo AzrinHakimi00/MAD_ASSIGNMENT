@@ -3,6 +3,7 @@ package com.example.mad_assignment.HomePage;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -43,6 +44,7 @@ import java.util.Locale;
 public class MainPage extends AppCompatActivity implements LocationListener {
 
     FirebaseAuth firebaseAuth;
+    SharedPreferences sharedPreferences;
     LocationManager locationManager;
     String address;
 
@@ -52,6 +54,7 @@ public class MainPage extends AppCompatActivity implements LocationListener {
         setContentView(R.layout.activity_main_page);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        sharedPreferences = getSharedPreferences("MyLocation", Context.MODE_PRIVATE);
 
         if (ContextCompat.checkSelfPermission(MainPage.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainPage.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
@@ -121,6 +124,17 @@ public class MainPage extends AppCompatActivity implements LocationListener {
             Geocoder geocoder = new Geocoder(MainPage.this, Locale.getDefault());
             List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
             address = addresses.get(0).getLocality();
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+
+            editor.putString("Country",addresses.get(0).getCountryName());
+            editor.putString("State",addresses.get(0).getLocality());
+            editor.putString("Address",addresses.get(0).getAddressLine(0));
+            editor.putString("latitude", String.valueOf(location.getLatitude()));
+            editor.putString("longitude", String.valueOf(location.getLongitude()));
+
+              // Apply the changes
+            editor.apply();
 
             HashMap<String,String> loc = new HashMap<>();
             loc.put("Country",addresses.get(0).getCountryName());

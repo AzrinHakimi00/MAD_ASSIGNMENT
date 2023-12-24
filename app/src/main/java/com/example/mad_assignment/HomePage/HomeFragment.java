@@ -1,7 +1,9 @@
 package com.example.mad_assignment.HomePage;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -15,6 +17,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.mad_assignment.AccountManagement.First_page;
 import com.example.mad_assignment.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -34,6 +41,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
@@ -41,7 +51,8 @@ import com.google.firebase.database.ValueEventListener;
  */
 public class HomeFragment extends Fragment{
 
-    TextView address;
+    String state;
+    TextView temperature, CurrentLoacation;
     MainPage mainPage;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -94,26 +105,16 @@ public class HomeFragment extends Fragment{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         FloatingActionButton logout = view.findViewById(R.id.logoutBtn);
-
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        DatabaseReference reference = firebaseDatabase.getReference("Users Location").child(user.getUid()).child("State");
-        address = view.findViewById(R.id.address);
+        temperature = view.findViewById(R.id.temperature);
+        CurrentLoacation = view.findViewById(R.id.state);
 
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String country = snapshot.getValue(String.class);
-                address.setText(country);
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+        WeatherAPICall();
 
-            }
-        });
+
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,8 +123,6 @@ public class HomeFragment extends Fragment{
                 userSignout();
             }
         });
-
-        //String address = getArguments().getString("CurrentLocation", "Default value if not found");
 
 
 
@@ -138,6 +137,89 @@ public class HomeFragment extends Fragment{
         startActivity(intent);
 
     }
+
+
+
+    public void weatherAPICall(View view) {
+        temperature = view.findViewById(R.id.temperature);
+        CurrentLoacation = view.findViewById(R.id.state);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyLocation", Context.MODE_PRIVATE);
+        String savedLatitude = sharedPreferences.getString("latitude", "defaultLatitude");
+        String savedLongitude = sharedPreferences.getString("longitude", "defaultLongitude");
+        String savedState = sharedPreferences.getString("State","");
+
+        String apiKey = "tBZ8jCBATn6gSS1Wxxid6UCB5c26OEK8";  // Replace with your actual API key
+        String apiUrl = "https://api.tomorrow.io/v4/weather/realtime?location=" +savedState+","+savedLongitude+ "&apikey=" + apiKey;
+
+        // Use HTTPS for security
+        apiUrl = apiUrl.replace("http://", "https://");
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(apiUrl, new Response.Listener<JSONObject>() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onResponse(JSONObject response) {
+                // Check for null values before accessing elements
+                JSONObject data = response.optJSONObject("data");
+                if (data != null) {
+                    JSONObject values = data.optJSONObject("values");
+                    if (values != null) {
+                        String temp = values.optString("temperature");
+                        temperature.setText(temp + "°C");
+                        CurrentLoacation.setText(savedState);
+                    }
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Handle API request error
+                error.printStackTrace();
+            }
+        });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(requireActivity().getApplicationContext());
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    public void WeatherAPICall(){
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyLocation", Context.MODE_PRIVATE);
+        String savedLatitude = sharedPreferences.getString("latitude", "-");
+        String savedLongitude = sharedPreferences.getString("longitude", "-");
+        String savedAddress = sharedPreferences.getString("Address", "-");
+        String savedState = sharedPreferences.getString("State","");
+        CurrentLoacation.setText(savedAddress);
+        String apiKey = "tBZ8jCBATn6gSS1Wxxid6UCB5c26OEK8";
+        String apiUrl = "https://api.tomorrow.io/v4/weather/realtime?location="+savedLatitude+","+savedLongitude+"&apikey=" + apiKey;
+
+        //must implement com.android.volley:volley:1.2.1
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(apiUrl, new Response.Listener<JSONObject>() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+
+                    String temp = response.getJSONObject("data").getJSONObject("values").getString("temperature");
+                    temperature.setText(temp+ "°C");
+
+
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        RequestQueue referenceQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
+        referenceQueue.add(jsonObjectRequest);
+    }
+
 
 
 
