@@ -15,6 +15,7 @@ import com.example.mad_assignment.HomePage.MainPage;
 import com.example.mad_assignment.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
@@ -23,7 +24,7 @@ import java.util.HashMap;
 
 public class LoginPage extends AppCompatActivity {
 
-    EditText ETemail, ETpassword;
+    EditText ETemail,ETpassword;
     Button login;
     TextView signUp, resetPassword;
     FirebaseAuth firebaseAuth;

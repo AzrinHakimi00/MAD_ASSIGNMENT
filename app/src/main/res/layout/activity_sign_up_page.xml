@@ -74,29 +74,58 @@ android:background="@drawable/bg_gradient">
             android:inputType="textEmailAddress"
             android:paddingLeft="10dp" />
 
-        <EditText
-            android:id="@+id/ETpassword"
-            android:layout_width="250dp"
-            android:layout_height="45dp"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:background="@drawable/rouded_corner"
-            android:textColor="@color/black"
-            android:backgroundTint="@color/white"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:paddingLeft="10dp" />
+            app:endIconDrawable="@drawable/show_hide_password"
+            app:endIconMode="password_toggle"
+            app:hintEnabled="false">
 
-        <EditText
-            android:id="@+id/ETconfirmPassword"
-            android:layout_width="250dp"
-            android:layout_height="45dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/rouded_corner"
-            android:textColor="@color/black"
-            android:backgroundTint="@color/white"
-            android:hint="Confirm password"
-            android:inputType="textPassword"
-            android:paddingLeft="10dp" />
+            <EditText
+                android:id="@+id/ETpassword"
+                android:layout_width="250dp"
+                android:layout_height="45dp"
+                android:background="@drawable/rouded_corner"
+                android:backgroundTint="@color/white"
+                android:hint="Password"
+                android:textColor="@color/black"
+                android:inputType="textPassword"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:layout_gravity="center"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilconfirmPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            app:endIconDrawable="@drawable/show_hide_password"
+            app:endIconMode="password_toggle"
+            app:hintEnabled="false">
+
+            <EditText
+                android:id="@+id/ETconfirmPassword"
+                android:layout_width="250dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:background="@drawable/rouded_corner"
+                android:backgroundTint="@color/white"
+                android:hint="Confirm password"
+                android:inputType="textPassword"
+                android:paddingStart="16dp"
+                android:paddingTop="12dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="12dp"
+                android:textColor="@color/black" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/signUpBtn"

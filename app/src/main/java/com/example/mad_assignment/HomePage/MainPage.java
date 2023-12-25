@@ -46,7 +46,6 @@ public class MainPage extends AppCompatActivity implements LocationListener {
     FirebaseAuth firebaseAuth;
     SharedPreferences sharedPreferences;
     LocationManager locationManager;
-    String address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,15 +69,9 @@ public class MainPage extends AppCompatActivity implements LocationListener {
             getLocation();
         }
 
-
-
-
     }
 
-    public String getAddress() {
-        return address;
-    }
-
+//--------------------------------------------------------------------------------------------------------------------//
     private void setUpBottomNavBar(NavController navController) {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
@@ -102,6 +95,7 @@ public class MainPage extends AppCompatActivity implements LocationListener {
     }
 
 
+    //--------------------------------------------------------------------------------------------------------------------//
     @RequiresApi(api = Build.VERSION_CODES.S)
     @SuppressLint("MissingPermission")
     public void getLocation() {
@@ -119,11 +113,9 @@ public class MainPage extends AppCompatActivity implements LocationListener {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference reference = firebaseDatabase.getReference("Users Location").child(user.getUid());
 
-        Toast.makeText(this, ""+location.getLatitude()+", "+ location.getLongitude(), Toast.LENGTH_LONG).show();
         try {
             Geocoder geocoder = new Geocoder(MainPage.this, Locale.getDefault());
             List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
-            address = addresses.get(0).getLocality();
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -144,9 +136,6 @@ public class MainPage extends AppCompatActivity implements LocationListener {
             loc.put("Longitude", String.valueOf(location.getLongitude()));
             reference.setValue(loc);
 
-
-            TextView add = findViewById(R.id.address);
-            add.setText(address);
             //Toast.makeText(this, address, Toast.LENGTH_LONG).show();
         }catch (Exception e){
             e.printStackTrace();
