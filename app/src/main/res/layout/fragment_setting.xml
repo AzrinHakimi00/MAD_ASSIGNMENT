@@ -2,16 +2,46 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".HomePage.SettingFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Setting"
-        android:textColor="#03A9F4"
-        android:textSize="60dp"
-        android:textAlignment="center"/>
+        android:orientation="vertical"
+        android:padding="30dp">
 
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Settings"
+            android:textSize="20sp"
+            android:textColor="@color/white"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Switch
+                android:id="@+id/darkModeSwitch"
+                android:layout_width="200dp"
+                android:layout_height="150dp"
+                android:text="Dark Mode"
+                android:textColor="@color/white"/>
+
+            <!-- Example: CheckBox for enabling a feature -->
+            <CheckBox
+                android:id="@+id/featureCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enable Feature"
+                android:textColor="@color/white"/>
+
+
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
 </FrameLayout>
