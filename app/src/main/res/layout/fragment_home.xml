@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomePage.HomeFragment">
+    tools:context=".HomePage.HomeFragment"
+    android:id="@+id/HomeFrag">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,8 +16,8 @@
             android:id="@+id/weatherWidget"
             android:layout_width="154dp"
             android:layout_height="200dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="44dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/rouded_corner"
             android:backgroundTint="#B5E48C"
             android:orientation="vertical"
@@ -27,28 +28,28 @@
                 android:id="@+id/temperature"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="30dp"
-                android:textStyle="bold"
+                android:layout_margin="20dp"
                 android:text="-"
-                android:textColor="@color/black"
                 android:textAlignment="center"
-                android:layout_margin="20dp"/>
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/state"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:text="-"
-                android:textColor="@color/black"
                 android:textAlignment="center"
-                android:layout_margin ="10dp"/>
+                android:textColor="@color/black" />
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/gameWidget"
-            android:layout_width="168dp"
-            android:layout_height="262dp"
+            android:layout_width="162dp"
+            android:layout_height="249dp"
             android:layout_marginStart="27dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="32dp"
@@ -69,43 +70,40 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/rouded_corner"
                 android:text="Play Game"
                 android:textAlignment="center"
                 android:textAllCaps="true"
-                android:textSize="20sp"
-                android:textStyle="bold"
                 android:textColor="@color/white"
-                android:background="@drawable/rouded_corner"
-                />
-
-
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
 
         </LinearLayout>
+
 
         <LinearLayout
             android:id="@+id/AirQualityWidget"
             android:layout_width="166dp"
             android:layout_height="163dp"
-            android:layout_marginTop="44dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="28dp"
             android:background="@drawable/rouded_corner"
             android:backgroundTint="#FFF065"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.838"
+            app:layout_constraintHorizontal_bias="0.828"
             app:layout_constraintStart_toEndOf="@+id/weatherWidget"
             app:layout_constraintTop_toTopOf="parent">
 
         </LinearLayout>
-
 
         <LinearLayout
             android:id="@+id/activityTrackerWidget"
             android:layout_width="156dp"
             android:layout_height="223dp"
             android:layout_marginStart="28dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="24dp"
             android:background="@drawable/rouded_corner"
             android:backgroundTint="#ADABA5"
             android:orientation="vertical"
@@ -116,14 +114,14 @@
 
         <LinearLayout
             android:id="@+id/linearLayout2"
-            android:layout_width="320dp"
-            android:layout_height="130dp"
-            android:layout_marginTop="40dp"
+            android:layout_width="200dp"
+            android:layout_height="105dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/rouded_corner"
             android:backgroundTint="@color/black"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintHorizontal_bias="0.132"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/activityTrackerWidget">
 
@@ -133,13 +131,23 @@
             android:id="@+id/logoutBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="336dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginStart="328dp"
+            android:layout_marginTop="8dp"
             android:src="@drawable/logout"
             app:backgroundTint="#CE93D8"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/quizBtn"
+            android:layout_width="128dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="28dp"
+            android:text="Quiz"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.879"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gameWidget" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

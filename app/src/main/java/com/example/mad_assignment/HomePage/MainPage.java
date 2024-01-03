@@ -3,6 +3,7 @@ package com.example.mad_assignment.HomePage;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -15,6 +16,7 @@ import android.os.Bundle;
 import android.renderscript.Sampler;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +24,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -52,6 +55,17 @@ public class MainPage extends AppCompatActivity implements LocationListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
 
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
+
+        myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         firebaseAuth = FirebaseAuth.getInstance();
         sharedPreferences = getSharedPreferences("MyLocation", Context.MODE_PRIVATE);
 
@@ -71,7 +85,10 @@ public class MainPage extends AppCompatActivity implements LocationListener {
 
     }
 
-//--------------------------------------------------------------------------------------------------------------------//
+
+
+
+    //--------------------------------------------------------------------------------------------------------------------//
     private void setUpBottomNavBar(NavController navController) {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);

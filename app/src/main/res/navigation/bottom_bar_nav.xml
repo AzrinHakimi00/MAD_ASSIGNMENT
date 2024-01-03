@@ -10,6 +10,9 @@
         android:name="com.example.mad_assignment.HomePage.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/gotoquiz"
+            app:destination="@id/quizFragment" />
     </fragment>
     <fragment
         android:id="@+id/SettingDest"
@@ -21,4 +24,13 @@
         android:name="com.example.mad_assignment.HomePage.ForumFragment"
         android:label="fragment_forum"
         tools:layout="@layout/fragment_forum" />
+    <fragment
+        android:id="@+id/quizFragment"
+        android:name="com.example.mad_assignment.AccountManagement.QuizFragment"
+        android:label="fragment_quiz"
+        tools:layout="@layout/fragment_quiz" >
+        <action
+            android:id="@+id/quiztohome"
+            app:destination="@id/HomeDest" />
+    </fragment>
 </navigation>

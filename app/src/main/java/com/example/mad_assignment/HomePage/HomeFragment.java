@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,9 +22,11 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.mad_assignment.AccountManagement.First_page;
 import com.example.mad_assignment.R;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -102,6 +105,14 @@ public class HomeFragment extends Fragment{
 
         WeatherAPICall();
 
+        ExtendedFloatingActionButton quizBtn = view.findViewById(R.id.quizBtn);
+        quizBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.gotoquiz);
+            }
+        });
+
 
 
         logout.setOnClickListener(new View.OnClickListener() {
@@ -127,6 +138,10 @@ public class HomeFragment extends Fragment{
 
     }
 
+
+
+
+
     private void userSignout() {
 
         Intent intent = new Intent(getActivity(), First_page.class);
@@ -134,6 +149,9 @@ public class HomeFragment extends Fragment{
         startActivity(intent);
 
     }
+
+
+
 
 
 
