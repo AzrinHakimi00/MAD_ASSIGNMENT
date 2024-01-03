@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,7 +13,6 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -27,19 +24,8 @@ import com.example.mad_assignment.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.location.Location;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import androidx.core.app.ActivityCompat;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,6 +40,8 @@ public class HomeFragment extends Fragment{
     String state;
     TextView temperature, CurrentLoacation;
     MainPage mainPage;
+
+    LinearLayout GameBtn;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -123,6 +111,15 @@ public class HomeFragment extends Fragment{
                 userSignout();
             }
         });
+
+        GameBtn = view.findViewById(R.id.gameWidget);
+        GameBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), MainActivity.class));
+            }
+        });
+
 
 
 
