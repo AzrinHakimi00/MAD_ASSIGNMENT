@@ -24,10 +24,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -55,19 +57,17 @@ public class MainPage extends AppCompatActivity implements LocationListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
+
+        Toolbar toolbar = findViewById(R.id.app_toolbar);
+        setSupportActionBar(toolbar);
 
 
-        myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
+
 
         firebaseAuth = FirebaseAuth.getInstance();
-        sharedPreferences = getSharedPreferences("MyLocation", Context.MODE_PRIVATE);
+
+
 
         if (ContextCompat.checkSelfPermission(MainPage.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainPage.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
@@ -85,6 +85,22 @@ public class MainPage extends AppCompatActivity implements LocationListener {
 
     }
 
+    private void loadMainFragment() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.FCVmainpage, new HomeFragment())
+                .commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            // If there are fragments in the back stack, pop the top one
+            getSupportFragmentManager().popBackStack();
+        } else {
+            // If the back stack is empty, handle the back button as normal
+            super.onBackPressed();
+        }
+    }
 
 
 
@@ -134,16 +150,6 @@ public class MainPage extends AppCompatActivity implements LocationListener {
             Geocoder geocoder = new Geocoder(MainPage.this, Locale.getDefault());
             List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
 
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-
-            editor.putString("Country",addresses.get(0).getCountryName());
-            editor.putString("State",addresses.get(0).getLocality());
-            editor.putString("Address",addresses.get(0).getAddressLine(0));
-            editor.putString("latitude", String.valueOf(location.getLatitude()));
-            editor.putString("longitude", String.valueOf(location.getLongitude()));
-
-              // Apply the changes
-            editor.apply();
 
             HashMap<String,String> loc = new HashMap<>();
             loc.put("Country",addresses.get(0).getCountryName());

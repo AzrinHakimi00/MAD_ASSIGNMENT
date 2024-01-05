@@ -14,22 +14,20 @@
         android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/my_toolbar"
+            android:id="@+id/app_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:elevation="4dp"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+            android:background="?attr/colorPrimary"/>
+
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/FCVmainpage"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.8"
+            android:layout_weight="1"
             app:defaultNavHost="true"
-            app:navGraph="@navigation/bottom_bar_nav"/>
+            app:navGraph="@navigation/bottom_bar_nav" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_nav"
