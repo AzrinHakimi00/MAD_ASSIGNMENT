@@ -8,4 +8,16 @@
     <string name="title_notifications">Notifications</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="terms_and_conditions">
+    By using or accessing the mobile app assignment ("the App"), you agree to comply with and be bound by these terms and conditions ("Terms"). If you do not agree to these Terms, please do not use the App.
+    </string>
+
+    <string name="privacypolicy">
+    We collect several different types of information for various purposes to provide and improve our Service to you which is your email address and name.
+    </string>
+
+    <string name="aboutapp">
+    This application is developed by group CTK9 for WIA2007 Mobile Application and Development Projects
+    </string>
 </resources>

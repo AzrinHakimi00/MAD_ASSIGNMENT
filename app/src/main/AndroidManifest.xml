@@ -41,7 +41,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
+        <activity android:name=".HomePage.SettingsDirectory"
+            android:exported="false"/>
         <activity
             android:name=".HomePage.MainActivity"
             android:exported="false" />

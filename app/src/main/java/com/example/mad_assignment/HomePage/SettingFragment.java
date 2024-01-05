@@ -1,12 +1,16 @@
 package com.example.mad_assignment.HomePage;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.example.mad_assignment.R;
 
@@ -25,6 +29,7 @@ public class SettingFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    LinearLayout AboutAppBtn;
 
     public SettingFragment() {
         // Required empty public constructor
@@ -62,5 +67,42 @@ public class SettingFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_setting, container, false);
+
+    }
+
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        AboutAppBtn = view.findViewById(R.id.aboutAppLayout);
+        AboutAppBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSettingsDirectory(R.layout.activity_aboutapp);
+            }
+        });
+
+        LinearLayout PrivacyPolicyBtn = view.findViewById(R.id.privacyPolicyLayout);
+        PrivacyPolicyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSettingsDirectory(R.layout.activity_privacypolicy);
+            }
+        });
+
+        LinearLayout TermCondBtn = view.findViewById(R.id.termsConditionsLayout);
+        TermCondBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSettingsDirectory(R.layout.activity_termconditions);
+            }
+        });
+    }
+
+    private void openSettingsDirectory(int layoutResId) {
+        Intent intent = new Intent(getActivity(), SettingsDirectory.class);
+        intent.putExtra("layoutResId", layoutResId);
+        startActivity(intent);
     }
 }
