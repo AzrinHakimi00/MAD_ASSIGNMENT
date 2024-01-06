@@ -29,6 +29,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -46,7 +47,7 @@ public class HomeFragment extends Fragment{
     TextView temperature, CurrentLoacation;
     MainPage mainPage;
 
-    LinearLayout GameBtn;
+    ImageButton GameBtn;
 
 
     public HomeFragment() {
@@ -81,8 +82,7 @@ public class HomeFragment extends Fragment{
 
         WeatherAPICall();
 
-        ExtendedFloatingActionButton quizBtn = view.findViewById(R.id.quizBtn);
-
+        ImageButton quizBtn = view.findViewById(R.id.quizBtn);
         quizBtn.setOnClickListener(v -> {Navigation.findNavController(view).navigate(R.id.quizFragment);});
 
         logout.setOnClickListener(new View.OnClickListener() {
@@ -93,13 +93,10 @@ public class HomeFragment extends Fragment{
             }
         });
 
-        GameBtn = view.findViewById(R.id.gameWidget);
-        GameBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), MainActivity.class));
-            }
-        });
+        GameBtn = view.findViewById(R.id.snakeGameBtn);
+        GameBtn.setOnClickListener(v -> {startActivity(new Intent(getActivity(), MainActivity.class));});
+
+
 
 
 

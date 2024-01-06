@@ -67,6 +67,7 @@ public class SignUpPage extends AppCompatActivity {
                 if(email.isEmpty()){
                     ETemail.setError("Please provide your email address");
                     ETemail.requestFocus();
+
                 }
                 else if(password.isEmpty()){
                     ETpassword.setError("Please provide a password");

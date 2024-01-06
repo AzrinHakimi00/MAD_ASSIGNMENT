@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomePage.HomeFragment"
-    android:id="@+id/HomeFrag">
+    android:id="@+id/HomeFrag"
+    android:layout_marginBottom="20dp"
+    >
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/weatherWidget"
-            android:layout_width="154dp"
-            android:layout_height="200dp"
-            android:layout_marginStart="28dp"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_margin="20dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/rounded_corner"
             android:backgroundTint="#B5E48C"
-            android:orientation="vertical"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/temperature"
@@ -48,107 +49,111 @@
 
         <LinearLayout
             android:id="@+id/gameWidget"
-            android:layout_width="162dp"
-            android:layout_height="249dp"
-            android:layout_marginStart="27dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="32dp"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/rounded_corner"
             android:backgroundTint="#168AAD"
             android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/activityTrackerWidget"
-            app:layout_constraintTop_toBottomOf="@+id/AirQualityWidget">
 
-            <androidx.appcompat.widget.AppCompatImageButton
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/snake">
-
-            </androidx.appcompat.widget.AppCompatImageButton>
+            >
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rounded_corner"
-                android:text="Play Game"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:text="Game"
+                android:layout_gravity="center"
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
 
 
-        </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
+                <ImageButton
+                    android:id="@+id/snakeGameBtn"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/snakeicon"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/rounded_corner"/>
 
-        <LinearLayout
-            android:id="@+id/AirQualityWidget"
-            android:layout_width="166dp"
-            android:layout_height="163dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="28dp"
-            android:background="@drawable/rounded_corner"
-            android:backgroundTint="#FFF065"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.828"
-            app:layout_constraintStart_toEndOf="@+id/weatherWidget"
-            app:layout_constraintTop_toTopOf="parent">
+                <ImageButton
+                    android:id="@+id/quizBtn"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/rounded_corner"
+                    android:backgroundTint="#F64F4F"
+                    android:src="@drawable/quiz" />
+
+            </LinearLayout>
+
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/activityTrackerWidget"
-            android:layout_width="156dp"
-            android:layout_height="223dp"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_margin="20sp"
             android:background="@drawable/rounded_corner"
             android:backgroundTint="#ADABA5"
-            android:orientation="vertical"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/weatherWidget">
+            android:orientation="vertical">
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="200dp"
-            android:layout_height="105dp"
-            android:layout_marginTop="20dp"
+            android:id="@+id/AirQualityWidget"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_margin="20dp"
             android:background="@drawable/rounded_corner"
-            android:backgroundTint="@color/black"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.132"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/activityTrackerWidget">
+            android:backgroundTint="#FFF065"
+            android:orientation="vertical">
 
         </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/achievementWidget"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/rounded_corner"
+            android:backgroundTint="@color/black"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+        <!--        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton-->
+<!--            android:id="@+id/quizBtn"-->
+<!--            android:layout_width="128dp"-->
+<!--            android:layout_height="100dp"-->
+<!--            android:text="Quiz"-->
+<!--            tools:layout_editor_absoluteX="0dp"-->
+<!--            tools:layout_editor_absoluteY="805dp" />-->
+
+
+
+
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/logoutBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="328dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="332dp"
+            android:layout_marginTop="32dp"
             android:src="@drawable/logout"
             app:backgroundTint="#CE93D8"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
-
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/quizBtn"
-            android:layout_width="128dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="28dp"
-            android:text="Quiz"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.879"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/gameWidget" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            />
 
 
-</FrameLayout>
+    </LinearLayout>
+
+
+</ScrollView>
