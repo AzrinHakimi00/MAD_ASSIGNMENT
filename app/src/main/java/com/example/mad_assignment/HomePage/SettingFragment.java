@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.transition.TransitionInflater;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,6 +62,8 @@ public class SettingFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        TransitionInflater inflater = TransitionInflater.from(requireContext());
+        setEnterTransition(inflater.inflateTransition(R.transition.fade));
     }
 
     @Override
@@ -98,6 +102,12 @@ public class SettingFragment extends Fragment {
                 openSettingsDirectory(R.layout.activity_termconditions);
             }
         });
+
+        LinearLayout profileBtn = view.findViewById(R.id.ProfileView);
+        profileBtn.setOnClickListener(v -> {
+            Navigation.findNavController(view).navigate(R.id.userProfile);
+        });
+
     }
 
     private void openSettingsDirectory(int layoutResId) {

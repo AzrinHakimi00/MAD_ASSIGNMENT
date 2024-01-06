@@ -33,6 +33,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.mad_assignment.R;
@@ -74,8 +75,10 @@ public class MainPage extends AppCompatActivity implements LocationListener {
         }
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.FCVmainpage);
-
         NavController navController = navHostFragment.getNavController();
+
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
+        NavigationUI.setupActionBarWithNavController(this,navController,appBarConfiguration);
 
         setUpBottomNavBar(navController);
 
@@ -127,6 +130,10 @@ public class MainPage extends AppCompatActivity implements LocationListener {
 
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        return Navigation.findNavController(this,R.id.FCVmainpage).navigateUp();
+    }
 
     //--------------------------------------------------------------------------------------------------------------------//
     @RequiresApi(api = Build.VERSION_CODES.S)

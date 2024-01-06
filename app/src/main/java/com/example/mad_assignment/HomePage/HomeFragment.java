@@ -83,7 +83,7 @@ public class HomeFragment extends Fragment{
 
         ExtendedFloatingActionButton quizBtn = view.findViewById(R.id.quizBtn);
 
-        quizBtn.setOnClickListener(v -> replaceFragment(new QuizFragment()));
+        quizBtn.setOnClickListener(v -> {Navigation.findNavController(view).navigate(R.id.quizFragment);});
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
