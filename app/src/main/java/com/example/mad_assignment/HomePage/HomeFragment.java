@@ -46,11 +46,9 @@ import java.text.DecimalFormat;
  */
 public class HomeFragment extends Fragment{
 
-    private APIcache dataCache;
     String state;
-    TextView temperature, weatherTV;
+    TextView temperature, weather;
     ImageView weatherIcon;
-    MainPage mainPage;
 
     ImageButton GameBtn;
 
@@ -94,10 +92,10 @@ public class HomeFragment extends Fragment{
         FloatingActionButton logout = view.findViewById(R.id.logoutBtn);
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         temperature = view.findViewById(R.id.temperature);
-        weatherTV = view.findViewById(R.id.weatherCode);
+        weather = view.findViewById(R.id.weatherCode);
 
-        dataCache = new APIcache(getContext());
-        WeatherWidget();
+
+        WeatherAPICall();
 
 
         ImageButton quizBtn = view.findViewById(R.id.quizBtn);
@@ -128,31 +126,108 @@ public class HomeFragment extends Fragment{
     }
 
 
-    public void WeatherWidget(){
-        weatherIcon = getView().findViewById(R.id.weatherIcon);
-
-        String temp = dataCache.getCachedTemperature();
-        temperature.setText(temp);
-        String weather = dataCache.getCachedWeather();
-        weatherTV.setText(weather);
-
-        String weatherIconURL = dataCache.getCachedWeatherIcon();
-        Picasso.get().load(weatherIconURL).into(weatherIcon);
+    public void WeatherAPICall(){
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyLocation", Context.MODE_PRIVATE);
+        String savedLatitude = sharedPreferences.getString("latitude", "-");
+        String savedLongitude = sharedPreferences.getString("longitude", "-");
         String savedAddress = sharedPreferences.getString("Address", "-");
+        String savedState = sharedPreferences.getString("State","");
+
         String[] add = savedAddress.split(",");
         TextView locationTV = getView().findViewById(R.id.location);
         locationTV.setText(add[0]);
+
+        String apiKey = "tBZ8jCBATn6gSS1Wxxid6UCB5c26OEK8";
+        String apiUrl = "https://api.tomorrow.io/v4/weather/realtime?location="+savedLatitude+","+savedLongitude+"&apikey=" + apiKey;
+
+        //must implement com.android.volley:volley:1.2.1
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(apiUrl, new Response.Listener<JSONObject>() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+
+                    String temp = response.getJSONObject("data").getJSONObject("values").getString("temperature");
+                    String weatherCode = response.getJSONObject("data").getJSONObject("values").getString("weatherCode");
+
+                    Double roundTemp = Double.valueOf(temp);
+                    DecimalFormat decimalFormat = new DecimalFormat("#.#");
+
+                    // Format the number to one decimal point
+                    String formattedTemp = decimalFormat.format(roundTemp);
+                    temperature.setText(formattedTemp+ "°");
+
+                    checkWeatherCode(weatherCode);
+
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        RequestQueue referenceQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
+        referenceQueue.add(jsonObjectRequest);
     }
 
 
 
 
+    private void checkWeatherCode(String weatherCode){
+        weatherIcon = getView().findViewById(R.id.weatherIcon);
 
 
+        switch (weatherCode){
+            case "1000":
+                weather.setText("Clear");
+                Picasso.get().load("https://files.readme.io/48b265b-weather_icon_small_ic_clear3x.png").into(weatherIcon);
+                break;
+            case "1100":
+                weather.setText("Mostly Clear");
+                Picasso.get().load("https://files.readme.io/c3d2596-weather_icon_small_ic_mostly_clear3x.png").into(weatherIcon);
+                break;
+            case "1101":
+                weather.setText("Partly Cloudy");
+                Picasso.get().load("https://files.readme.io/5ef9011-weather_icon_small_ic_partly_cloudy3x.png").into(weatherIcon);
+                break;
+            case "1102":
+                weather.setText("Mostly Cloudy");
+                Picasso.get().load("https://files.readme.io/6beaa54-weather_icon_small_ic_mostly_cloudy3x.png").into(weatherIcon);
+                break;
+            case "1001":
+                weather.setText("Cloudy");
+                Picasso.get().load("https://files.readme.io/4042728-weather_icon_small_ic_cloudy3x.png").into(weatherIcon);
+                break;
 
+            case "4000":
+                weather.setText("Drizzle");
+                Picasso.get().load("https://files.readme.io/f22e925-weather_icon_small_ic_rain_drizzle3x.png").into(weatherIcon);
+                break;
+            case "4001":
+                weather.setText("Rain");
+                Picasso.get().load("https://files.readme.io/aab8713-weather_icon_small_ic_rain3x.png").into(weatherIcon);
+                break;
+            case "4200":
+                weather.setText("Light Rain");
+                Picasso.get().load("https://files.readme.io/ea98852-weather_icon_small_ic_rain_light3x.png").into(weatherIcon);
+                break;
+            case "4201":
+                weather.setText("Heavy Rain");
+                Picasso.get().load("https://files.readme.io/fdacbb8-weather_icon_small_ic_rain_heavy3x.png").into(weatherIcon);
+                break;
+            case "8000":
+                weather.setText("Thunderstorm");
+                Picasso.get().load("https://files.readme.io/39fb806-weather_icon_small_ic_tstorm3x.png").into(weatherIcon);
+                break;
 
+        }
+    }
 
 
 

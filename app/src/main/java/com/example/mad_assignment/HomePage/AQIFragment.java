@@ -144,30 +144,6 @@ public class AQIFragment extends Fragment {
 
 
 
-    //show location as string
-    private String hereLocation(Location location) {
-        try {
-            if (Geocoder.isPresent()) {
-                Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
-                List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-
-                if (addresses != null && addresses.size() > 0) {
-                    Address address = addresses.get(0);
-                    return address.getAdminArea() + ", " + address.getCountryName();
-                }
-            } else {
-                return "Geocoder is not available";
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "Error retrieving location";
-        }
-        return "Lat: " + location.getLatitude() + "\nLong: " + location.getLongitude();
-    }
-
-
-
-
     @SuppressLint("SetTextI18n")
     public void AQI(){
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyLocation", Context.MODE_PRIVATE);
