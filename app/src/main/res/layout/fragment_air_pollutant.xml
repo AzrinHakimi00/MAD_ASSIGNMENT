@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomePage.AirPollutant"
+    android:orientation="vertical"
+    android:gravity="top|center">
+
+    <TextView
+        android:id="@+id/AQI_Header"
+        android:layout_width="match_parent"
+        android:layout_height="57dp"
+        android:fontFamily="@font/inriasansbold"
+        android:text="Air Quality Index"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="80dp"/>
+
+
+    <TextView
+        android:id="@+id/AQI_Time"
+        android:layout_width="331dp"
+        android:layout_height="34dp"
+        android:text="Date"
+        android:textAlignment="textStart"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#008EFF"
+        android:textSize="20sp"
+        android:textStyle="normal"
+        android:layout_marginBottom="30dp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="301dp"
+        android:layout_height="391dp"
+        android:layout_marginBottom="64dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        >
+
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/AQI_PM10"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingTop="15dp"
+                android:text="PM10"
+                android:textAlignment="center"
+                android:background="#FFA3A3"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/AQI_PM10V"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:paddingTop="25dp"
+                android:text="Value"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/AQI_O3"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingTop="15dp"
+                android:textAlignment="center"
+                android:text="O3"
+                android:background="#FAFFC4"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/AQI_O3V"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:paddingTop="25dp"
+                android:text="Value"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/AQI_SO2"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingTop="15dp"
+                android:text="SO2"
+                android:textAlignment="center"
+                android:background="#FFD89F"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/AQI_SO2V"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:paddingTop="25dp"
+                android:text="Value"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:ignore="RtlSymmetry" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/AQI_PM25"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingTop="15dp"
+                android:textAlignment="center"
+                android:text="PM2.5"
+                android:background="#ABF1FA"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/AQI_PM25V"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:paddingTop="25dp"
+                android:text="Value"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/AQI_NO2"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingTop="15dp"
+                android:text="NO2"
+                android:textAlignment="center"
+                android:background="#F6BFFF"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/AQI_NO2V"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:paddingTop="25dp"
+                android:text="Value"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/AQI_CO"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingTop="15dp"
+                android:text="CO"
+                android:textAlignment="center"
+                android:background="#B0FFB3"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/AQI_COV"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:paddingTop="25dp"
+                android:text="Value"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:ignore="RtlSymmetry" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

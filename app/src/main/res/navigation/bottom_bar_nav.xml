@@ -33,4 +33,14 @@
         android:name="com.example.mad_assignment.HomePage.UserProfile"
         android:label="Profile"
         tools:layout="@layout/fragment_user_profile" />
+    <fragment
+        android:id="@+id/AQIFragment"
+        android:name="com.example.mad_assignment.HomePage.AQIFragment"
+        android:label="Air Quality Index"
+        tools:layout="@layout/fragment_aqi" />
+    <fragment
+        android:id="@+id/airPollutant"
+        android:name="com.example.mad_assignment.HomePage.AirPollutant"
+        android:label="Air Pollutant"
+        tools:layout="@layout/fragment_air_pollutant" />
 </navigation>

@@ -87,6 +87,10 @@ public class HomeFragment extends Fragment{
         weatherWidget.setBackground(gradientDrawable);
         gradientDrawable.setCornerRadius(50);
 
+
+        LinearLayout aqiWidget = view.findViewById(R.id.AirQualityWidget);
+        aqiWidget.setOnClickListener(v -> {Navigation.findNavController(view).navigate(R.id.AQIFragment);});
+
         FloatingActionButton logout = view.findViewById(R.id.logoutBtn);
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         temperature = view.findViewById(R.id.temperature);

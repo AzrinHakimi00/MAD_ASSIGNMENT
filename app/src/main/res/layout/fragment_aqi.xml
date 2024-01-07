@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomePage.AQIFragment"
+    android:layout_marginTop="40dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="50dp">
+
+        <TextView
+            android:id="@+id/AQI_Tittle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Current Air Quality"
+            android:textAlignment="center"
+            android:layout_marginTop="40dp"
+            android:textSize="30dp"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/AQI_Date"
+            android:layout_width="232dp"
+            android:layout_height="23dp"
+            android:layout_marginTop="8dp"
+            android:text="Date"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+             />
+
+
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/aqi_metric_dark"
+                    android:layout_width="220dp"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/aqi_metric_light" />
+
+                <TextView
+                    android:id="@+id/AQI_Value"
+                    android:layout_width="83dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="68dp"
+                    android:layout_marginTop="136dp"
+                    android:text="Value"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/AQI_Lvl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="64dp"
+                    android:text="Level severity"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/AQI_Value" />
+
+                <TextView
+                    android:id="@+id/AQI"
+                    android:layout_width="70dp"
+                    android:layout_height="28dp"
+                    android:layout_marginStart="72dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Air Quality"
+                    android:textAlignment="center"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/AQI_Lvl" />
+
+                <Button
+                    android:id="@+id/Btn_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="64dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Details"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/AQI" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/Trees"
+            android:layout_width="73dp"
+            android:layout_height="67dp"
+            app:srcCompat="@drawable/trees" />
+
+        <TextView
+            android:id="@+id/AQI_Location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="Location"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="300dp"
+            android:layout_height="30dp"
+            android:background="#D1F8A4"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/AQI_DailyForecast"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="#2B71A8"
+                android:text="Daily Forecast"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:typeface="sans" />
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="300dp"
+            android:layout_height="150dp"
+            android:layout_marginBottom="72dp"
+            android:orientation="horizontal">
+
+
+
+            <LinearLayout
+                android:layout_width="243dp"
+                android:layout_height="match_parent"
+                android:background="#FAEE7E"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/AQI_DateTmrw0"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:padding="10dp"
+                    android:text="Wednesday"
+                    android:textColor="#000000"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/AQI_DateTmrw"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:padding="10dp"
+                    android:text="Thursday"
+                    android:textColor="#000000"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/AQI_DateTmrw2"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:padding="10dp"
+                    android:text="Friday"
+                    android:textColor="#000000"
+                    android:textAlignment="center" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#BCF4F4"
+                android:textColor="#000000"
+                android:orientation="vertical"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="565dp">
+
+                <TextView
+                    android:id="@+id/AQI_ValueTmrw0"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:padding="10dp"
+                    android:textColor="#000000"
+                    android:text="50"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/AQI_ValueTmrw"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:padding="10dp"
+                    android:textColor="#000000"
+                    android:text="46"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/AQI_ValueTmrw2"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:padding="10dp"
+                    android:text="54"
+                    android:textColor="#000000"
+                    android:textAlignment="center" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+</ScrollView>
