@@ -25,7 +25,7 @@
         tools:layout="@layout/fragment_forum" />
     <fragment
         android:id="@+id/quizFragment"
-        android:name="com.example.mad_assignment.AccountManagement.QuizFragment"
+        android:name="com.example.mad_assignment.HomePage.QuizFragment"
         android:label="Environmental Quiz"
         tools:layout="@layout/fragment_quiz" />
     <fragment

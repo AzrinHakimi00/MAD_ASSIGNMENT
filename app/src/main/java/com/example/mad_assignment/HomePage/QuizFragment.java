@@ -1,28 +1,25 @@
-package com.example.mad_assignment.AccountManagement;
+package com.example.mad_assignment.HomePage;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import androidx.transition.TransitionInflater;
 
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebSettings;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.example.mad_assignment.R;
+import com.jpardogo.android.googleprogressbar.library.GoogleProgressBar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -88,27 +85,48 @@ public class QuizFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         webView = view.findViewById(R.id.webView);
+        GoogleProgressBar progressBar = view.findViewById(R.id.progressBar);
 
-        // Enable JavaScript (optional)
-        WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
+        // Enable JavaScript and other settings for the WebView
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setLoadWithOverviewMode(true);
+        webView.getSettings().setUseWideViewPort(true);
 
-        // Handle clicks in the WebView
-        webView.setWebViewClient(new WebViewClient());
+        // Show the ProgressBar with a delay of at least two seconds
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            progressBar.setVisibility(View.VISIBLE);
 
-        // Load a web page
-        webView.loadUrl("https://azrinhakimi0.github.io/ReactQuiz-App/");
+            // Set a WebViewClient to handle onPageFinished and onPageStarted events
+            webView.setWebViewClient(new WebViewClient() {
+                @Override
+                public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                    // No need to check for the visibility, as it's already set
+                }
 
-        // Enable Up button in the hosting Activity's ActionBar
-        if (getActivity() != null) {
-            ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-            if (actionBar != null) {
-                actionBar.setDisplayHomeAsUpEnabled(true);
-                actionBar.setHomeButtonEnabled(true);
+                @Override
+                public void onPageFinished(WebView view, String url) {
+                    // Hide the ProgressBar when the page finishes loading
+                    progressBar.setVisibility(View.GONE);
+                    // Make the WebView visible
+                    webView.setVisibility(View.VISIBLE);
+                }
+            });
 
-            }
+            // Set a WebChromeClient to handle onProgressChanged event
+            webView.setWebChromeClient(new WebChromeClient() {
+                @Override
+                public void onProgressChanged(WebView view, int newProgress) {
+                    // Update the ProgressBar's progress
+                    progressBar.setProgress(newProgress);
+                }
+            });
 
-        }
+            // Load your URL here
+            webView.loadUrl("https://azrinhakimi0.github.io/ReactQuiz-App/");
+        }, 2000);
+
+
+
     }
 
 

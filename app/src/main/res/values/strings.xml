@@ -20,4 +20,6 @@
     <string name="aboutapp">
     This application is developed by group CTK9 for WIA2007 Mobile Application and Development Projects
     </string>
+    <string name="SnakeButton">Snake game</string>
+    <string name="QuizButton">Quiz</string>
 </resources>

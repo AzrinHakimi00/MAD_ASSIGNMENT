@@ -4,6 +4,9 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,19 +25,20 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.mad_assignment.AccountManagement.First_page;
-import com.example.mad_assignment.AccountManagement.QuizFragment;
 import com.example.mad_assignment.R;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.squareup.picasso.Picasso;
 
-import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.DecimalFormat;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,7 +48,8 @@ import org.json.JSONObject;
 public class HomeFragment extends Fragment{
 
     String state;
-    TextView temperature, CurrentLoacation;
+    TextView temperature, weather;
+    ImageView weatherIcon;
     MainPage mainPage;
 
     ImageButton GameBtn;
@@ -74,10 +79,18 @@ public class HomeFragment extends Fragment{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        GradientDrawable gradientDrawable = new GradientDrawable(
+                GradientDrawable.Orientation.TOP_BOTTOM,
+                new int[]{Color.rgb(244, 244, 244), Color.argb(102, 255, 238, 145)}
+        );
+        LinearLayout weatherWidget = view.findViewById(R.id.weatherWidget);
+        weatherWidget.setBackground(gradientDrawable);
+        gradientDrawable.setCornerRadius(50);
+
         FloatingActionButton logout = view.findViewById(R.id.logoutBtn);
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         temperature = view.findViewById(R.id.temperature);
-        CurrentLoacation = view.findViewById(R.id.state);
+        weather = view.findViewById(R.id.weatherCode);
 
 
         WeatherAPICall();
@@ -105,14 +118,7 @@ public class HomeFragment extends Fragment{
 
     }
 
-    private void replaceFragment(Fragment fragment) {
-        if (getActivity() != null) {
-            getActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.FCVmainpage, fragment)
-                    .addToBackStack(null)
-                    .commit();
-        }
-    }
+
 
 
 
@@ -132,7 +138,11 @@ public class HomeFragment extends Fragment{
         String savedLongitude = sharedPreferences.getString("longitude", "-");
         String savedAddress = sharedPreferences.getString("Address", "-");
         String savedState = sharedPreferences.getString("State","");
-        CurrentLoacation.setText(savedAddress);
+
+        String[] add = savedAddress.split(",");
+        TextView locationTV = getView().findViewById(R.id.location);
+        locationTV.setText(add[0]);
+
         String apiKey = "tBZ8jCBATn6gSS1Wxxid6UCB5c26OEK8";
         String apiUrl = "https://api.tomorrow.io/v4/weather/realtime?location="+savedLatitude+","+savedLongitude+"&apikey=" + apiKey;
 
@@ -144,7 +154,21 @@ public class HomeFragment extends Fragment{
                 try {
 
                     String temp = response.getJSONObject("data").getJSONObject("values").getString("temperature");
-                    temperature.setText(temp+ "°C");
+                    String weatherCode = response.getJSONObject("data").getJSONObject("values").getString("weatherCode");
+
+                    Double roundTemp = Double.valueOf(temp);
+                    DecimalFormat decimalFormat = new DecimalFormat("#.#");
+
+                    // Format the number to one decimal point
+                    String formattedTemp = decimalFormat.format(roundTemp);
+                    temperature.setText(formattedTemp+ "°");
+
+
+
+                    checkWeatherCode(weatherCode);
+
+
+
 
 
                 } catch (JSONException e) {
@@ -161,6 +185,58 @@ public class HomeFragment extends Fragment{
 
         RequestQueue referenceQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
         referenceQueue.add(jsonObjectRequest);
+    }
+
+
+
+    private void checkWeatherCode(String weatherCode){
+        weatherIcon = getView().findViewById(R.id.weatherIcon);
+
+
+        switch (weatherCode){
+            case "1000":
+                weather.setText("Clear");
+                Picasso.get().load("https://files.readme.io/48b265b-weather_icon_small_ic_clear3x.png").into(weatherIcon);
+                break;
+            case "1100":
+                weather.setText("Mostly Clear");
+                Picasso.get().load("https://files.readme.io/c3d2596-weather_icon_small_ic_mostly_clear3x.png").into(weatherIcon);
+                break;
+            case "1101":
+                weather.setText("Partly Cloudy");
+                Picasso.get().load("https://files.readme.io/5ef9011-weather_icon_small_ic_partly_cloudy3x.png").into(weatherIcon);
+                break;
+            case "1102":
+                weather.setText("Mostly Cloudy");
+                Picasso.get().load("https://files.readme.io/6beaa54-weather_icon_small_ic_mostly_cloudy3x.png").into(weatherIcon);
+                break;
+            case "1001":
+                weather.setText("Cloudy");
+                Picasso.get().load("https://files.readme.io/4042728-weather_icon_small_ic_cloudy3x.png").into(weatherIcon);
+                break;
+
+            case "4000":
+                weather.setText("Drizzle");
+                Picasso.get().load("https://files.readme.io/f22e925-weather_icon_small_ic_rain_drizzle3x.png").into(weatherIcon);
+                break;
+            case "4001":
+                weather.setText("Rain");
+                Picasso.get().load("https://files.readme.io/aab8713-weather_icon_small_ic_rain3x.png").into(weatherIcon);
+                break;
+            case "4200":
+                weather.setText("Light Rain");
+                Picasso.get().load("https://files.readme.io/ea98852-weather_icon_small_ic_rain_light3x.png").into(weatherIcon);
+                break;
+            case "4201":
+                weather.setText("Heavy Rain");
+                Picasso.get().load("https://files.readme.io/fdacbb8-weather_icon_small_ic_rain_heavy3x.png").into(weatherIcon);
+                break;
+            case "8000":
+                weather.setText("Thunderstorm");
+                Picasso.get().load("https://files.readme.io/39fb806-weather_icon_small_ic_tstorm3x.png").into(weatherIcon);
+                break;
+
+        }
     }
 
 

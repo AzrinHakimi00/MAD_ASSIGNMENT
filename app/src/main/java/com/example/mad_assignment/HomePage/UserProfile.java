@@ -41,6 +41,11 @@ public class UserProfile extends Fragment {
     private static final int PICK_IMAGE_REQUEST = 1;
     private ImageView profileImageView;
 
+    FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseUser;
+
+    FirebaseDatabase database;
+
 
     public UserProfile() {
         // Required empty public constructor
@@ -64,23 +69,26 @@ public class UserProfile extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        getUsername();
-        getEmail();
+
         return inflater.inflate(R.layout.fragment_user_profile, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        database = FirebaseDatabase.getInstance();
         profileImageView = view.findViewById(R.id.profilePicture);
+
+        getUsername();
+        getEmail();
+
 
 
     }
 
     private void getUsername(){
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
         assert firebaseUser != null;
         String uid = firebaseUser.getUid();
         DatabaseReference myRef = database.getReference("Users Account/"+uid+"/usename");
@@ -106,10 +114,6 @@ public class UserProfile extends Fragment {
 
 
     private void getEmail(){
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
         assert firebaseUser != null;
         String uid = firebaseUser.getUid();
         DatabaseReference myRef = database.getReference("Users Account/"+uid+"/email");
