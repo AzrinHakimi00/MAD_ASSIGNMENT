@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -50,7 +49,6 @@ public class HomeFragment extends Fragment{
     String state;
     TextView temperature, weather;
     ImageView weatherIcon;
-    MainPage mainPage;
 
     ImageButton GameBtn;
 
@@ -99,6 +97,7 @@ public class HomeFragment extends Fragment{
 
         WeatherAPICall();
 
+
         ImageButton quizBtn = view.findViewById(R.id.quizBtn);
         quizBtn.setOnClickListener(v -> {Navigation.findNavController(view).navigate(R.id.quizFragment);});
 
@@ -114,15 +113,7 @@ public class HomeFragment extends Fragment{
         GameBtn.setOnClickListener(v -> {startActivity(new Intent(getActivity(), MainActivity.class));});
 
 
-
-
-
-
-
-
     }
-
-
 
 
 
@@ -167,13 +158,7 @@ public class HomeFragment extends Fragment{
                     String formattedTemp = decimalFormat.format(roundTemp);
                     temperature.setText(formattedTemp+ "°");
 
-
-
                     checkWeatherCode(weatherCode);
-
-
-
-
 
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -190,6 +175,7 @@ public class HomeFragment extends Fragment{
         RequestQueue referenceQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
         referenceQueue.add(jsonObjectRequest);
     }
+
 
 
 
@@ -242,7 +228,6 @@ public class HomeFragment extends Fragment{
 
         }
     }
-
 
 
 
