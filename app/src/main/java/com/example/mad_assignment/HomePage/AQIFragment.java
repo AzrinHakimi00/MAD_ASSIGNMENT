@@ -12,6 +12,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -42,6 +43,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -164,6 +166,8 @@ public class AQIFragment extends Fragment {
     }
 
 
+
+
     @SuppressLint("SetTextI18n")
     public void AQI(){
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyLocation", Context.MODE_PRIVATE);
@@ -181,18 +185,36 @@ public class AQIFragment extends Fragment {
             @Override
             public void onResponse(JSONObject response) {
                 try {
+                    int index = 0;
+                    int point = 24;
+                    for(int i=0; i<4; i++){
+                        int sumAQI = 0;
+                        for(int j=index; j<point; j++){
+                            String aqiToday = response.getJSONArray("list").getJSONObject(j).getJSONObject("main").getString("aqi");
+                            int aqi = Integer.parseInt(aqiToday);
+                            sumAQI += aqi;
 
-                    String aqiToday = response.getJSONArray("list").getJSONObject(0).getJSONObject("main").getString("aqi");
-                    todayv.setText(aqiToday);
+                        }
+                        int averageAQI = sumAQI/24;
+                        switch (i) {
+                            case (0):
+                                todayv.setText("" + averageAQI);
+                                setTextViewWithColor(lvl,averageAQI);
+                                break;
+                            case (1):
+                                tmrwv.setText("" + averageAQI);
+                                break;
+                            case (2):
+                                tmrw2v.setText("" + averageAQI);
+                                break;
+                            case (3):
+                                tmrw3v.setText("" + averageAQI);
+                                break;
+                        }
+                        index += 24;
+                        point += 24;
+                    }
 
-                    String aqi1 = response.getJSONArray("list").getJSONObject(1).getJSONObject("main").getString("aqi");
-                    tmrwv.setText(aqi1);
-
-                    String aqi2 = response.getJSONArray("list").getJSONObject(2).getJSONObject("main").getString("aqi");
-                    tmrw2v.setText(aqi2);
-
-                    String aqi3 = response.getJSONArray("list").getJSONObject(3).getJSONObject("main").getString("aqi");
-                    tmrw3v.setText(aqi3);
 
 
                 } catch (JSONException e) {
@@ -211,6 +233,36 @@ public class AQIFragment extends Fragment {
         referenceQueue.add(jsonObjectRequest);
 
 
+    }
+
+    public void setTextViewWithColor(TextView textView, int averageAQI) {
+        switch (averageAQI) {
+            case 1:
+                textView.setText("Good");
+                textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.GOOD));
+
+                break;
+            case 2:
+                textView.setText("Fair");
+                textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.FAIR));
+
+                break;
+            case 3:
+                textView.setText("Moderate");
+                textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.MODERATE));
+
+                break;
+            case 4:
+                textView.setText("Poor");
+                textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.POOR));
+
+                break;
+            case 5:
+                textView.setText("Very Poor");
+                textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.black));
+
+                break;
+        }
     }
 
 

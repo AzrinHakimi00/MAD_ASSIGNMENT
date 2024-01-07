@@ -1,6 +1,9 @@
 package com.example.mad_assignment.AccountManagement;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +13,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.mad_assignment.HomePage.MainPage;
 import com.example.mad_assignment.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -26,6 +34,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.DecimalFormat;
 import java.util.HashMap;
 
 
@@ -50,6 +62,7 @@ public class First_page extends AppCompatActivity {
         loginBtn = findViewById(R.id.loginButton);
         SignUpUsingEmailBtn = findViewById(R.id.SignUpUsingEmailButton);
         googleSignUpBtn = findViewById(R.id.GoogleButton);
+
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,7 +150,7 @@ public class First_page extends AppCompatActivity {
                     map.put("name",user.getDisplayName());
                     map.put("profile",user.getPhotoUrl().toString());
 
-                    database.getReference().child("Users").child(user.getUid()).setValue(map);
+                    database.getReference().child("Users Account").child(user.getUid()).setValue(map);
 
                     startActivity(new Intent(First_page.this, MainPage.class));
                 }
@@ -148,4 +161,9 @@ public class First_page extends AppCompatActivity {
         });
 
     }
+
+
+
+
+
 }
