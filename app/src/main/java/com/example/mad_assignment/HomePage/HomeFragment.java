@@ -10,6 +10,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.transition.TransitionInflater;
@@ -47,10 +48,13 @@ import java.text.DecimalFormat;
 public class HomeFragment extends Fragment{
 
     String state;
-    TextView temperature, weather;
+    TextView temperature, weather,aqi, level;
     ImageView weatherIcon;
 
     ImageButton GameBtn;
+
+    View aqi1,aqi2,aqi3,aqi4,aqi5;
+    int AQI = 0;
 
 
     public HomeFragment() {
@@ -77,6 +81,9 @@ public class HomeFragment extends Fragment{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        aqi = getView().findViewById(R.id.AQI);
+        level = getView().findViewById(R.id.level);
+
         GradientDrawable gradientDrawable = new GradientDrawable(
                 GradientDrawable.Orientation.TOP_BOTTOM,
                 new int[]{Color.rgb(244, 244, 244), Color.argb(102, 255, 238, 145)}
@@ -94,7 +101,7 @@ public class HomeFragment extends Fragment{
         temperature = view.findViewById(R.id.temperature);
         weather = view.findViewById(R.id.weatherCode);
 
-
+        setAQIWidget();
         WeatherAPICall();
 
 
@@ -122,6 +129,28 @@ public class HomeFragment extends Fragment{
         Intent intent = new Intent(getActivity(), First_page.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+
+    }
+
+
+    private void setAQIWidget(){
+        AQI();
+        aqi1 = getView().findViewById(R.id.aqi1);
+        aqi2 = getView().findViewById(R.id.aqi2);
+        aqi3 = getView().findViewById(R.id.aqi3);
+        aqi4 = getView().findViewById(R.id.aqi4);
+        aqi5 = getView().findViewById(R.id.aqi5);
+
+        aqi1.setVisibility(View.GONE);
+        aqi2.setVisibility(View.GONE);
+        aqi3.setVisibility(View.GONE);
+        aqi4.setVisibility(View.GONE);
+        aqi5.setVisibility(View.GONE);
+
+
+
+
+
 
     }
 
@@ -228,8 +257,69 @@ public class HomeFragment extends Fragment{
 
         }
     }
+    public void AQI(){
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyLocation", Context.MODE_PRIVATE);
+        String savedLatitude = sharedPreferences.getString("latitude", "-");
+        String savedLongitude = sharedPreferences.getString("longitude", "-");
 
+        String apiKey = "f6b0e9e985d5c35e9e2834c0546415e1";
+        String apiUrl = "https://api.openweathermap.org/data/2.5/air_pollution/forecast?lat="+savedLatitude+"&lon="+savedLongitude+"&appid="+apiKey;
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(apiUrl, new Response.Listener<JSONObject>() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    int sumAQI = 0;
+                    for (int j = 0; j < 24; j++) {
+                        String aqiToday = response.getJSONArray("list").getJSONObject(j).getJSONObject("main").getString("aqi");
+                        int aqi = Integer.parseInt(aqiToday);
+                        sumAQI += aqi;
+                    }
+                    int averageAQI = sumAQI / 24;
+                    AQI = averageAQI;
 
+                    aqi.setText(""+averageAQI);
+                    switch (averageAQI) {
+                        case 1:
+                            aqi1.setVisibility(View.VISIBLE);
+                            level.setText("Good");
+                            break;
+                        case 2:
+                            aqi2.setVisibility(View.VISIBLE);
+                            level.setText("Fair");
+                            break;
+                        case 3:
+                            aqi3.setVisibility(View.VISIBLE);
+                            level.setText("Moderate");
+
+                            break;
+                        case 4:
+                            aqi4.setVisibility(View.VISIBLE);
+                            level.setText("Poor");
+
+                            break;
+                        case 5:
+                            aqi5.setVisibility(View.VISIBLE);
+                            level.setText("Very Poor");
+                            break;
+                    }
+
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        RequestQueue referenceQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
+        referenceQueue.add(jsonObjectRequest);
+
+    }
 
 
 }

@@ -52,9 +52,6 @@ import java.util.Objects;
  */
 public class AQIFragment extends Fragment {
 
-    private static final int PERMISSION_LOCATION = 1000;
-    TextView date;
-    TextView time;
     TextView location;
     TextView lvl;
     TextView today;
@@ -162,7 +159,7 @@ public class AQIFragment extends Fragment {
             public void onResponse(JSONObject response) {
                 try {
                     int index = 0;
-                    int point = 24;
+                    int point = 20;
                     for(int i=0; i<4; i++){
                         int sumAQI = 0;
                         for(int j=index; j<point; j++){
@@ -187,14 +184,14 @@ public class AQIFragment extends Fragment {
                                 tmrw3v.setText("" + averageAQI);
                                 break;
                         }
-                        index += 24;
-                        point += 24;
+                        index += 20;
+                        point += 20;
                     }
 
 
 
                 } catch (JSONException e) {
-                    throw new RuntimeException(e);
+                    Toast.makeText(getActivity().getApplicationContext(),""+e,Toast.LENGTH_LONG).show();
                 }
 
             }
