@@ -13,7 +13,7 @@ public class SettingsDirectory extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // Default layout if the extra is not provided
-        int layoutResId = getIntent().getIntExtra("layoutResId", R.layout.activity_aboutapp);
+        int layoutResId = getIntent().getIntExtra("layoutResId", R.layout.fragment_aboutapp);
 
         setContentView(layoutResId);
     }

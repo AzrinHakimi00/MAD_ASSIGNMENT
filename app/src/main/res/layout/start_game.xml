@@ -21,12 +21,13 @@
         android:src="@drawable/play" />
 
     <Button
-        android:layout_width="50dp"
+        android:id="@+id/homeButton"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
-
+        android:background="@drawable/button_back"
+        android:clickable="true"
+        android:backgroundTint="#ADABA5"
         />
-
-
 
 
 </RelativeLayout>
