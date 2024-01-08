@@ -1,6 +1,7 @@
 package com.example.mad_assignment.HomePage;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -12,6 +13,7 @@ import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -124,6 +126,17 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder, Su
                 });
             }
         });
+
+        Button homeButton = findViewById(R.id.homeButton);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Handle button click and navigate to fragment_home.xml (or HomeActivity, if it's an Activity)
+                Intent intent = new Intent(MainActivity.this, HomeFragment.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
 

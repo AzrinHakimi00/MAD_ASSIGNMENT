@@ -64,6 +64,9 @@ public class SettingFragment extends Fragment {
         }
         TransitionInflater inflater = TransitionInflater.from(requireContext());
         setEnterTransition(inflater.inflateTransition(R.transition.fade));
+
+
+
     }
 
     @Override
@@ -79,28 +82,19 @@ public class SettingFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        AboutAppBtn = view.findViewById(R.id.aboutAppLayout);
-        AboutAppBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openSettingsDirectory(R.layout.activity_aboutapp);
-            }
-        });
+        LinearLayout AboutAppBtn = view.findViewById(R.id.aboutAppLayout);
+        AboutAppBtn.setOnClickListener(v ->
+                Navigation.findNavController(view).navigate(R.id.AAFragment)
+        );
 
         LinearLayout PrivacyPolicyBtn = view.findViewById(R.id.privacyPolicyLayout);
-        PrivacyPolicyBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openSettingsDirectory(R.layout.activity_privacypolicy);
-            }
-        });
+        PrivacyPolicyBtn.setOnClickListener(v ->
+                Navigation.findNavController(view).navigate(R.id.PPFragment)
+        );
 
         LinearLayout TermCondBtn = view.findViewById(R.id.termsConditionsLayout);
-        TermCondBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openSettingsDirectory(R.layout.activity_termconditions);
-            }
+        TermCondBtn.setOnClickListener(v -> {
+            Navigation.findNavController(view).navigate(R.id.TCFragment);
         });
 
         LinearLayout profileBtn = view.findViewById(R.id.ProfileView);

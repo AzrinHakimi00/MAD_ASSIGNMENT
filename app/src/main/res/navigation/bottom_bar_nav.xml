@@ -43,4 +43,19 @@
         android:name="com.example.mad_assignment.HomePage.AirPollutant"
         android:label="Air Pollutant"
         tools:layout="@layout/fragment_air_pollutant" />
+    <fragment
+        android:id="@+id/TCFragment"
+        android:name="com.example.mad_assignment.HomePage.TCFragment"
+        android:label="Terms and Conditions"
+        tools:layout="@layout/fragment_termconditions" />
+    <fragment
+        android:id="@+id/PPFragment"
+        android:name="com.example.mad_assignment.HomePage.PPFragment"
+        android:label="Privacy and Policy"
+        tools:layout="@layout/fragment_privacypolicy" />
+    <fragment
+        android:id="@+id/AAFragment"
+        android:name="com.example.mad_assignment.HomePage.AAFragment"
+        android:label="About App"
+        tools:layout="@layout/fragment_aboutapp" />
 </navigation>
