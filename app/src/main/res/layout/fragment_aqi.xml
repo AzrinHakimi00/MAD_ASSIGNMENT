@@ -76,9 +76,10 @@
 
                 <TextView
                     android:id="@+id/AQI_Lvl"
-                    android:layout_width="80dp"
+                    android:layout_width="83dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="67dp"
+                    android:layout_marginStart="68dp"
+                    android:layout_marginTop="4dp"
                     android:text=""
                     android:textAlignment="center"
                     app:layout_constraintStart_toStartOf="parent"
@@ -86,10 +87,10 @@
 
                 <TextView
                     android:id="@+id/AQI"
-                    android:layout_width="70dp"
+                    android:layout_width="83dp"
                     android:layout_height="28dp"
-                    android:layout_marginStart="72dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="68dp"
+                    android:layout_marginTop="12dp"
                     android:text="Air Quality"
                     android:textAlignment="center"
                     app:layout_constraintStart_toStartOf="parent"
@@ -99,8 +100,8 @@
                     android:id="@+id/Btn_details"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="61dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="64dp"
+                    android:layout_marginTop="28dp"
                     android:text="Details"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/AQI" />

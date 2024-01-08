@@ -36,7 +36,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="40dp"
                     android:fontFamily="@font/mulishfont"
-                    android:text="-"
+                    android:text="26"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="60dp"
@@ -50,7 +50,7 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginBottom="24dp"
                     android:fontFamily="@font/mulishfont"
-                    android:text="-"
+                    android:text="Light Rain"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="20dp"
@@ -64,7 +64,8 @@
                     android:layout_marginStart="48dp"
                     android:layout_marginTop="16dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
 
                 <TextView
                     android:id="@+id/location"
@@ -149,17 +150,105 @@
             android:layout_height="150dp"
             android:layout_margin="20dp"
             android:background="@drawable/rounded_corner"
-            android:backgroundTint="#FFF065"
+            android:backgroundTint="#A0FFE1"
             android:orientation="vertical"
             android:gravity="center">
 
-            <TextView
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="Air Quality Index"
-                android:textSize="30dp"
-                android:textColor="@color/black"/>
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/aqi_metric_light"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/level"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="26dp"
+                    android:layout_marginTop="20dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    app:layout_constraintStart_toStartOf="@+id/imageView"
+                    app:layout_constraintTop_toBottomOf="@+id/AQI" />
+
+                <TextView
+                    android:id="@+id/AQI"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="52dp"
+                    android:layout_marginTop="40dp"
+                    android:text="1"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="40dp"
+                    app:layout_constraintStart_toStartOf="@+id/imageView"
+                    app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+                <View
+                    android:id="@+id/aqi1"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="48dp"
+                    android:layout_marginTop="120dp"
+                    android:background="@drawable/rounded_corner"
+                    android:backgroundTint="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/aqi2"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="56dp"
+                    android:background="@drawable/rounded_corner"
+                    android:backgroundTint="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/aqi5"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="160dp"
+                    android:layout_marginTop="120dp"
+                    android:background="@drawable/rounded_corner"
+                    android:backgroundTint="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/aqi3"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="104dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/rounded_corner"
+                    android:backgroundTint="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/aqi4"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="168dp"
+                    android:layout_marginTop="56dp"
+                    android:background="@drawable/rounded_corner"
+                    android:backgroundTint="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
 
