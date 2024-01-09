@@ -23,10 +23,11 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="16dp"
+                android:layout_margin="10dp"
             android:clickable="true"
             android:onClick="ProfileClick"
                 android:background="@drawable/rounded_corner"
-                android:backgroundTint="#ADABA5"
+                android:backgroundTint="#6CFF72"
                 >
 
             <TextView
@@ -34,7 +35,8 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="Your Profile"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                android:textColor="@color/black"/>
 
             <!-- You can add an icon or additional information here if needed -->
         </LinearLayout>
@@ -55,7 +57,8 @@
             android:clickable="true"
             android:onClick="onPrivacyPolicyClick"
             android:background="@drawable/rounded_corner"
-            android:backgroundTint="#ADABA5"
+            android:backgroundTint="#5EEDFF"
+            android:layout_margin="10dp"
             >
 
             <TextView
@@ -63,7 +66,8 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="Privacy Policy"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                android:textColor="@color/black"/>
 
             <!-- You can add an icon or additional information here if needed -->
         </LinearLayout>
@@ -78,7 +82,8 @@
             android:clickable="true"
             android:onClick="onTermsConditionsClick"
             android:background="@drawable/rounded_corner"
-            android:backgroundTint="#ADABA5"
+            android:backgroundTint="#5EEDFF"
+            android:layout_margin="10dp"
             >
 
             <TextView
@@ -86,7 +91,8 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="Terms and Conditions"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                android:textColor="@color/black"/>
 
             <!-- You can add an icon or additional information here if needed -->
         </LinearLayout>
@@ -101,7 +107,8 @@
             android:clickable="true"
             android:onClick="onAboutAppClick"
             android:background="@drawable/rounded_corner"
-            android:backgroundTint="#ADABA5"
+            android:backgroundTint="#5EEDFF"
+            android:layout_margin="10dp"
             >
 
             <TextView
@@ -109,7 +116,8 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="About App"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                android:textColor="@color/black"/>
 
             <!-- You can add an icon or additional information here if needed -->
         </LinearLayout>

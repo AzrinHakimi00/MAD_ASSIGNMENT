@@ -4,7 +4,7 @@ xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context=".HomePage.PPFragment"
-android:background="#D8D8D8">
+android:background="#2e2e2e">
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -20,7 +20,8 @@ android:background="#D8D8D8">
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Privacy Policy"
-        android:textSize="30sp"/>
+        android:textSize="30sp"
+        android:textColor="@color/white"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -35,7 +36,8 @@ android:background="#D8D8D8">
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/privacypolicy"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textColor="@color/white"/>
     </ScrollView>
 
 </LinearLayout>
