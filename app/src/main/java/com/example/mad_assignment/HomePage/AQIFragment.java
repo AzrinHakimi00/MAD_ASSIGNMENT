@@ -168,7 +168,7 @@ public class AQIFragment extends Fragment {
                             sumAQI += aqi;
 
                         }
-                        int averageAQI = sumAQI/24;
+                        int averageAQI = sumAQI/20;
                         switch (i) {
                             case (0):
                                 todayv.setText("" + averageAQI);
@@ -232,7 +232,7 @@ public class AQIFragment extends Fragment {
                 break;
             case 5:
                 textView.setText("Very Poor");
-                textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.black));
+                textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.VERYPOOR));
 
                 break;
         }

@@ -58,4 +58,14 @@
         android:name="com.example.mad_assignment.HomePage.AAFragment"
         android:label="About App"
         tools:layout="@layout/fragment_aboutapp" />
+    <fragment
+        android:id="@+id/activityTrackerFragment"
+        android:name="com.example.mad_assignment.HomePage.ActivityTrackerFragment"
+        android:label="Activity Tracker"
+        tools:layout="@layout/fragment_activity_tracker" />
+    <fragment
+        android:id="@+id/userImpactFragment"
+        android:name="com.example.mad_assignment.HomePage.UserImpactFragment"
+        android:label="User Impact"
+        tools:layout="@layout/fragment_user_impact" />
 </navigation>

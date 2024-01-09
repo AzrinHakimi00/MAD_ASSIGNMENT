@@ -1,0 +1,18 @@
+<resources>
+    <array name="activities_array">
+        <item>Reduce, Reuse, Recycle</item>
+        <item>Turn off taps</item>
+        <item>Turn off lights</item>
+        <item>Walk, bike, carpool</item>
+        <item>Plant a Tree</item>
+        <item>Use public transport</item>
+        <item>Gardening</item>
+        <item>Bring reusable bags</item>
+        <item>Participate in Clean-up Events</item>
+        <item>Recycling</item>
+        <item>Volunteer for environmental organisations</item>
+        <item>Join environmental club</item>
+        <item>Read an e-book</item>
+        <item>Spend wisely during shopping</item>
+    </array>
+</resources>

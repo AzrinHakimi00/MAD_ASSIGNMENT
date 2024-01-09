@@ -96,6 +96,9 @@ public class HomeFragment extends Fragment{
         LinearLayout aqiWidget = view.findViewById(R.id.AirQualityWidget);
         aqiWidget.setOnClickListener(v -> {Navigation.findNavController(view).navigate(R.id.AQIFragment);});
 
+        LinearLayout activityTracker = view.findViewById(R.id.activityTrackerWidget);
+        activityTracker.setOnClickListener(v -> {Navigation.findNavController(view).navigate(R.id.activityTrackerFragment);});
+
         FloatingActionButton logout = view.findViewById(R.id.logoutBtn);
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         temperature = view.findViewById(R.id.temperature);
@@ -107,6 +110,8 @@ public class HomeFragment extends Fragment{
 
         ImageButton quizBtn = view.findViewById(R.id.quizBtn);
         quizBtn.setOnClickListener(v -> {Navigation.findNavController(view).navigate(R.id.quizFragment);});
+
+
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -270,12 +275,12 @@ public class HomeFragment extends Fragment{
             public void onResponse(JSONObject response) {
                 try {
                     int sumAQI = 0;
-                    for (int j = 0; j < 24; j++) {
+                    for (int j = 0; j < 20; j++) {
                         String aqiToday = response.getJSONArray("list").getJSONObject(j).getJSONObject("main").getString("aqi");
                         int aqi = Integer.parseInt(aqiToday);
                         sumAQI += aqi;
                     }
-                    int averageAQI = sumAQI / 24;
+                    int averageAQI = sumAQI / 20;
                     AQI = averageAQI;
 
                     aqi.setText(""+averageAQI);

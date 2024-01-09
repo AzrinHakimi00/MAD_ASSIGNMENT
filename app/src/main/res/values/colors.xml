@@ -2,8 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="GOOD">#FFABA863</color>
-    <color name="FAIR">#FFEEEA77</color>
-    <color name="MODERATE">#FFE58F40</color>
-    <color name="POOR">#E91010</color>
+    <color name="GOOD">#59FF00</color>
+    <color name="FAIR">#D2FF2F</color>
+    <color name="MODERATE">#FFC800</color>
+    <color name="POOR">#FF4B04</color>
+    <color name="VERYPOOR">#FF0000</color>
+
+    <color name="statusBarColor">#3DC3FF</color>
 </resources>

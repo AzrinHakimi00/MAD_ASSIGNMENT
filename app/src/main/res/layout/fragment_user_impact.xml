@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomePage.UserImpactFragment"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Collect your tree"
+            android:textAlignment="center"
+            android:fontFamily="@font/mulishfont"
+            android:textColor="@color/white"
+            android:textSize="32dp"/>
+
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:columnCount="3"
+            android:rowCount="3">
+
+            <ImageView
+                android:id="@+id/tree1"
+                android:layout_width="89dp"
+                android:layout_height="77dp"
+                android:layout_margin="20dp"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/tree1"
+                android:background="@drawable/transparentbg_whiteborder"/>
+
+            <ImageView
+                android:id="@+id/tree2"
+                android:layout_width="89dp"
+                android:layout_height="77dp"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:layout_margin="20dp"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/tree1"
+                android:background="@drawable/transparentbg_whiteborder"/>
+
+            <ImageView
+                android:id="@+id/tree3"
+                android:layout_width="89dp"
+                android:layout_height="77dp"
+                android:layout_margin="20dp"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/tree1"
+                android:background="@drawable/transparentbg_whiteborder"/>
+
+            <ImageView
+                android:id="@+id/tree4"
+                android:layout_width="89dp"
+                android:layout_height="77dp"
+                android:layout_margin="20dp"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/tree1"
+                android:background="@drawable/transparentbg_whiteborder"/>
+
+            <ImageView
+                android:id="@+id/tree5"
+                android:layout_width="89dp"
+                android:layout_height="77dp"
+                android:layout_margin="20dp"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/tree1"
+                android:background="@drawable/transparentbg_whiteborder"/>
+
+            <ImageView
+                android:id="@+id/tree6"
+                android:layout_width="89dp"
+                android:layout_height="77dp"
+                android:layout_margin="20dp"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/tree1"
+                android:background="@drawable/transparentbg_whiteborder"/>
+
+            <ImageView
+                android:id="@+id/tree7"
+                android:layout_width="89dp"
+                android:layout_height="77dp"
+                android:layout_margin="20dp"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/tree1"
+                android:background="@drawable/transparentbg_whiteborder"/>
+
+            <ImageView
+                android:id="@+id/tree8"
+                android:layout_width="89dp"
+                android:layout_height="77dp"
+                android:layout_margin="20dp"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/tree1"
+                android:background="@drawable/transparentbg_whiteborder"/>
+
+            <ImageView
+                android:id="@+id/tree9"
+                android:layout_width="89dp"
+                android:layout_height="77dp"
+                android:layout_margin="20dp"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/tree1"
+                android:background="@drawable/transparentbg_whiteborder"/>
+
+        </GridLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBarPlant"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:visibility="invisible"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/transparentbg_whiteborder">
+            <Spinner
+                android:id="@+id/activitiesSpinner"
+                android:layout_width="379dp"
+                android:layout_height="36dp"
+                />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/pointsTextView"
+            android:layout_width="107dp"
+            android:layout_height="34dp"
+            android:fontFamily="@font/inriasansbold"
+            android:gravity="center"
+            android:text="Total Points: 0"
+            android:textColor="#FFFFFF"
+            android:textSize="11dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.506"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.692" />
+
+
+
+        <Button
+            android:id="@+id/submitButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#4CAF50"
+            android:fontFamily="@font/inriasansbold"
+            android:text="Submit"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.687" />
+
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:fontFamily="@font/inriasansbold"
+            android:gravity="center"
+            android:text="About Activity"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.579" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inriasansbold"
+            android:text="These trees give you a quick visual reference of how \ninvolved you are each day. When you complete your daily \ngoal, more tree is added."
+            android:textColor="#FFFFFF"
+            android:textSize="11dp"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.333"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.771" />
+
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:fontFamily="@font/inriasansbold"
+            android:text="The phone tracks your activity with trees, which measures \nthe amount of points you contributed daily. It takes 200 \npoints to obtain a tree. What are you waiting for? Plant \nyour seeds of hardwork in the environment for a better \nearth."
+            android:textColor="#FFFFFF"
+            android:textAlignment="center"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.64"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.883" />
+
+
+        <Button
+            android:id="@+id/resetTreesButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="#4CAF50"
+            android:fontFamily="@font/inriasansbold"
+            android:text="Reset Trees"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.971" />
+
+
+    </LinearLayout>
+
+
+
+
+
+</ScrollView>
