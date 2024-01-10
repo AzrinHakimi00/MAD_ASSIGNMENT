@@ -97,15 +97,19 @@ public class HomeFragment extends Fragment{
         aqiWidget.setOnClickListener(v -> {Navigation.findNavController(view).navigate(R.id.AQIFragment);});
 
         LinearLayout activityTracker = view.findViewById(R.id.activityTrackerWidget);
-        activityTracker.setOnClickListener(v -> {Navigation.findNavController(view).navigate(R.id.activityTrackerFragment);});
+        activityTracker.setOnClickListener(v -> {Navigation.findNavController(view).navigate(R.id.userImpactFragment);});
 
-        FloatingActionButton logout = view.findViewById(R.id.logoutBtn);
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        LinearLayout achivement = view.findViewById(R.id.achievementWidget);
+        achivement.setOnClickListener(v -> {Navigation.findNavController(getView()).navigate(R.id.achievementFragment);});
+
+//        FloatingActionButton logout = view.findViewById(R.id.logoutBtn);
+//        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         temperature = view.findViewById(R.id.temperature);
         weather = view.findViewById(R.id.weatherCode);
 
-        setAQIWidget();
+        //setAQIWidget();
         WeatherAPICall();
+        AQI();
 
 
         ImageButton quizBtn = view.findViewById(R.id.quizBtn);
@@ -113,13 +117,13 @@ public class HomeFragment extends Fragment{
 
 
 
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                firebaseAuth.signOut();
-                userSignout();
-            }
-        });
+//        logout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                firebaseAuth.signOut();
+//                userSignout();
+//            }
+//        });
 
         GameBtn = view.findViewById(R.id.snakeGameBtn);
         GameBtn.setOnClickListener(v -> {startActivity(new Intent(getActivity(), MainActivity.class));});
@@ -138,26 +142,26 @@ public class HomeFragment extends Fragment{
     }
 
 
-    private void setAQIWidget(){
-        AQI();
-        aqi1 = getView().findViewById(R.id.aqi1);
-        aqi2 = getView().findViewById(R.id.aqi2);
-        aqi3 = getView().findViewById(R.id.aqi3);
-        aqi4 = getView().findViewById(R.id.aqi4);
-        aqi5 = getView().findViewById(R.id.aqi5);
-
-        aqi1.setVisibility(View.GONE);
-        aqi2.setVisibility(View.GONE);
-        aqi3.setVisibility(View.GONE);
-        aqi4.setVisibility(View.GONE);
-        aqi5.setVisibility(View.GONE);
-
-
-
-
-
-
-    }
+//    private void setAQIWidget(){
+//        AQI();
+//        aqi1 = getView().findViewById(R.id.aqi1);
+//        aqi2 = getView().findViewById(R.id.aqi2);
+//        aqi3 = getView().findViewById(R.id.aqi3);
+//        aqi4 = getView().findViewById(R.id.aqi4);
+//        aqi5 = getView().findViewById(R.id.aqi5);
+//
+//        aqi1.setVisibility(View.GONE);
+//        aqi2.setVisibility(View.GONE);
+//        aqi3.setVisibility(View.GONE);
+//        aqi4.setVisibility(View.GONE);
+//        aqi5.setVisibility(View.GONE);
+//
+//
+//
+//
+//
+//
+//    }
 
 
     public void WeatherAPICall(){
@@ -286,26 +290,30 @@ public class HomeFragment extends Fragment{
                     aqi.setText(""+averageAQI);
                     switch (averageAQI) {
                         case 1:
-                            aqi1.setVisibility(View.VISIBLE);
+                            //aqi1.setVisibility(View.VISIBLE);
                             level.setText("Good");
+                            level.setTextColor(getResources().getColor(R.color.GOOD));
                             break;
                         case 2:
-                            aqi2.setVisibility(View.VISIBLE);
+                            //aqi2.setVisibility(View.VISIBLE);
                             level.setText("Fair");
+                            level.setTextColor(getResources().getColor(R.color.FAIR));
                             break;
                         case 3:
-                            aqi3.setVisibility(View.VISIBLE);
+                            //aqi3.setVisibility(View.VISIBLE);
                             level.setText("Moderate");
+                            level.setTextColor(getResources().getColor(R.color.MODERATE));
 
                             break;
                         case 4:
-                            aqi4.setVisibility(View.VISIBLE);
+                            //aqi4.setVisibility(View.VISIBLE);
                             level.setText("Poor");
-
+                            level.setTextColor(getResources().getColor(R.color.POOR));
                             break;
                         case 5:
-                            aqi5.setVisibility(View.VISIBLE);
+                            //aqi5.setVisibility(View.VISIBLE);
                             level.setText("Very Poor");
+                            level.setTextColor(getResources().getColor(R.color.VERYPOOR));
                             break;
                     }
 

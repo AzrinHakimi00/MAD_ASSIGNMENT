@@ -9,4 +9,12 @@
     <color name="VERYPOOR">#FF0000</color>
 
     <color name="statusBarColor">#3DC3FF</color>
+
+    <!-- colors.xml -->
+    <color name="color1"> #A8D5E2</color> <!-- Gold -->
+    <color name="color2">#C67688</color> <!-- Green -->
+    <color name="color3">#D7B377</color> <!-- Blue -->
+    <color name="color4">#AAFAC8</color> <!-- Orange -->
+    <color name="color5">#C7FFED</color> <!-- Purple -->
+
 </resources>

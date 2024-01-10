@@ -147,7 +147,7 @@ public class First_page extends AppCompatActivity {
                     HashMap<String,String>  map = new HashMap<>();
 
                     map.put("id",user.getUid());
-                    map.put("name",user.getDisplayName());
+                    map.put("username",user.getDisplayName());
                     map.put("profile",user.getPhotoUrl().toString());
 
                     database.getReference().child("Users Account").child(user.getUid()).setValue(map);

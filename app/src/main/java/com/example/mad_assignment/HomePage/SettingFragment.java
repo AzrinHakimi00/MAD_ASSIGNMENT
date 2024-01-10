@@ -14,7 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.example.mad_assignment.AccountManagement.First_page;
 import com.example.mad_assignment.R;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,6 +26,8 @@ import com.example.mad_assignment.R;
  * create an instance of this fragment.
  */
 public class SettingFragment extends Fragment {
+
+    FirebaseAuth firebaseAuth;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -101,6 +107,24 @@ public class SettingFragment extends Fragment {
         profileBtn.setOnClickListener(v -> {
             Navigation.findNavController(view).navigate(R.id.userProfile);
         });
+
+        ExtendedFloatingActionButton logout = view.findViewById(R.id.logoutBtn);
+        firebaseAuth = FirebaseAuth.getInstance();
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                firebaseAuth.signOut();
+                userSignout();
+            }
+        });
+
+    }
+
+    private void userSignout() {
+
+        Intent intent = new Intent(getActivity(), First_page.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
 
     }
 

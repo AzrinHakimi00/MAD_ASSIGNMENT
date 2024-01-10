@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -107,6 +108,11 @@ public class UserImpactFragment extends Fragment {
         Button resetTreesButton = view.findViewById(R.id.resetTreesButton);
         pointsTextView =  view.findViewById(R.id.pointsTextView);
         progressBarPlant =  view.findViewById(R.id.progressBarPlant);
+
+        Button cbcalc = view.findViewById(R.id.carbonCalc);
+        cbcalc.setOnClickListener(v -> {
+            Navigation.findNavController(getView()).navigate(R.id.activityTrackerFragment);
+        });
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
         currentUser = auth.getCurrentUser();

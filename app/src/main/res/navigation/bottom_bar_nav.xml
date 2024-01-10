@@ -61,11 +61,15 @@
     <fragment
         android:id="@+id/activityTrackerFragment"
         android:name="com.example.mad_assignment.HomePage.ActivityTrackerFragment"
-        android:label="Activity Tracker"
+        android:label="Carbon Calculator"
         tools:layout="@layout/fragment_activity_tracker" />
     <fragment
         android:id="@+id/userImpactFragment"
         android:name="com.example.mad_assignment.HomePage.UserImpactFragment"
-        android:label="User Impact"
+        android:label="Activity Tracker"
         tools:layout="@layout/fragment_user_impact" />
+    <fragment
+        android:id="@+id/achievementFragment"
+        android:name="com.example.mad_assignment.HomePage.AchievementFragment"
+        android:label="AchievementFragment" />
 </navigation>

@@ -137,10 +137,6 @@ public class ActivityTrackerFragment extends Fragment {
             }
         });
 
-        Button BtnUserImpact = view.findViewById(R.id.BtnUserImpact);
-        BtnUserImpact.setOnClickListener(v -> {
-            Navigation.findNavController(view).navigate(R.id.userImpactFragment);
-        });
     }
 
 
