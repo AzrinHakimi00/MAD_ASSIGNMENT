@@ -267,8 +267,18 @@
             android:layout_height="150dp"
             android:layout_margin="20dp"
             android:background="@drawable/rounded_corner"
-            android:backgroundTint="@color/black"
-            android:orientation="vertical">
+            android:backgroundTint="@color/color2"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="Milestone &amp; Achievement"
+                android:textSize="24dp"
+                android:fontFamily="@font/mulishfont"
+                android:textAlignment="center"/>
 
         </LinearLayout>
 
