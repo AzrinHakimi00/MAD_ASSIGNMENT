@@ -72,4 +72,9 @@
         android:id="@+id/achievementFragment"
         android:name="com.example.mad_assignment.HomePage.AchievementFragment"
         android:label="AchievementFragment" />
+    <fragment
+        android:id="@+id/discussionFragment"
+        android:name="com.example.mad_assignment.HomePage.DiscussionFragment"
+        android:label="Disscussion"
+        tools:layout="@layout/fragment_discussion" />
 </navigation>

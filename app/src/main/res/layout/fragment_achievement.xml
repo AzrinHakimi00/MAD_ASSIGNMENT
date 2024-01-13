@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#2e2e2e"
     android:gravity="center|top">
 
 
@@ -91,6 +92,7 @@
             android:fontFamily="@font/fira_code_light"
             android:text="&quot;Did you know that by calculating your carbon footprint, you're taking the first step toward a greener lifestyle? Keep it up!&quot;"
             android:textSize="12sp"
+            android:textColor="@color/white"
             android:layout_marginBottom="20dp"
             android:padding="10dp"/>
 
@@ -149,6 +151,7 @@
             android:fontFamily="@font/fira_code_light"
             android:text="&quot;Fun fact - recycling just one aluminum can saves enough energy to power a TV for three hours. You're making a real impact as an Eco Warrior!"
             android:textSize="12sp"
+            android:textColor="@color/white"
             android:layout_marginBottom="20dp"
             android:padding="10dp"/>
 
@@ -208,6 +211,7 @@
             android:fontFamily="@font/fira_code_light"
             android:text="&quot;Fun fact - recycling just one aluminum can saves enough energy to power a TV for three hours. You're making a real impact as an Eco Warrior!"
             android:textSize="12sp"
+            android:textColor="@color/white"
             android:layout_marginBottom="20dp"
             android:padding="10dp"
             />
@@ -261,6 +265,7 @@
             android:fontFamily="@font/fira_code_light"
             android:text="&quot;Trees are nature's superheroes! They absorb carbon dioxide and provide oxygen. As a Tree Hugger, you're contributing to a healthier planet.&quot;"
             android:textSize="12sp"
+            android:textColor="@color/white"
             android:layout_marginBottom="20dp"
             android:padding="10dp"
             />
@@ -314,6 +319,7 @@
             android:text="&quot;Amazing job! Each tree you plant helps combat climate change. Did you know a single tree can absorb as much as 48 pounds of carbon dioxide per year?&quot;"
             android:textSize="12sp"
             android:padding="10dp"
+            android:textColor="@color/white"
             android:layout_marginBottom="20dp"/>
 
 

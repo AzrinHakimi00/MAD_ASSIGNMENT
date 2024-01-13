@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.transition.TransitionInflater;
 
 import android.provider.Settings;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -39,6 +41,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -98,10 +101,8 @@ public class AQIFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        TransitionInflater inflater = TransitionInflater.from(requireContext());
+        setEnterTransition(inflater.inflateTransition(R.transition.slide_right));
     }
 
     @Override
@@ -141,102 +142,221 @@ public class AQIFragment extends Fragment {
 
 
 
-    @SuppressLint("SetTextI18n")
-    public void AQI(){
+//    @SuppressLint("SetTextI18n")
+//    public void AQI(){
+//        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyLocation", Context.MODE_PRIVATE);
+//        String savedLatitude = sharedPreferences.getString("latitude", "-");
+//        String savedLongitude = sharedPreferences.getString("longitude", "-");
+//        String savedAddress = sharedPreferences.getString("Address", "-");
+//        location.setText(savedAddress);
+//
+//        String apiKey = "f6b0e9e985d5c35e9e2834c0546415e1";
+//        String apiUrl = "https://api.openweathermap.org/data/2.5/air_pollution/forecast?lat="+savedLatitude+"&lon="+savedLongitude+"&appid="+apiKey;
+//
+//
+//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(apiUrl, new Response.Listener<JSONObject>() {
+//            @SuppressLint("SetTextI18n")
+//            @Override
+//            public void onResponse(JSONObject response) {
+//                try {
+//                    int index = 0;
+//                    int point = 20;
+//                    for(int i=0; i<4; i++){
+//                        int sumAQI = 0;
+//                        for(int j=index; j<point; j++){
+//                            String aqiToday = response.getJSONArray("list").getJSONObject(j).getJSONObject("main").getString("aqi");
+//                            int aqi = Integer.parseInt(aqiToday);
+//                            sumAQI += aqi;
+//
+//                        }
+//                        int averageAQI = sumAQI/20;
+//                        switch (i) {
+//                            case (0):
+//                                todayv.setText("" + averageAQI);
+//                                setTextViewWithColor(lvl,averageAQI);
+//                                break;
+//                            case (1):
+//                                tmrwv.setText("" + averageAQI);
+//                                break;
+//                            case (2):
+//                                tmrw2v.setText("" + averageAQI);
+//                                break;
+//                            case (3):
+//                                tmrw3v.setText("" + averageAQI);
+//                                break;
+//                        }
+//                        index += 20;
+//                        point += 20;
+//                    }
+//
+//
+//
+//                } catch (JSONException e) {
+//                    Toast.makeText(getActivity().getApplicationContext(),""+e,Toast.LENGTH_LONG).show();
+//                }
+//
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//
+//            }
+//        });
+//
+//        RequestQueue referenceQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
+//        referenceQueue.add(jsonObjectRequest);
+//
+//
+//    }
+
+    public void AQI() {
+
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyLocation", Context.MODE_PRIVATE);
         String savedLatitude = sharedPreferences.getString("latitude", "-");
         String savedLongitude = sharedPreferences.getString("longitude", "-");
         String savedAddress = sharedPreferences.getString("Address", "-");
         location.setText(savedAddress);
 
-        String apiKey = "f6b0e9e985d5c35e9e2834c0546415e1";
-        String apiUrl = "https://api.openweathermap.org/data/2.5/air_pollution/forecast?lat="+savedLatitude+"&lon="+savedLongitude+"&appid="+apiKey;
+        String apiKey = "bfae835a587c463187d4178050f47717";
+        String apiUrl = "https://api.weatherbit.io/v2.0/forecast/airquality?lat=" + savedLatitude + "&lon=" + savedLongitude + "&key=" + apiKey;
 
+        RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.GET,  // Adjust the method based on your API requirements
+                apiUrl,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            //JSONObject json = new JSONObject(jsonData);
+                            JSONArray dataList = response.getJSONArray("data");
+                            List<String> listdate = new ArrayList<>();
+                            List<Integer> listaqi = new ArrayList<>();
+                            // Calculate daily average AQI for today and the next 3 days
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(apiUrl, new Response.Listener<JSONObject>() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    int index = 0;
-                    int point = 20;
-                    for(int i=0; i<4; i++){
-                        int sumAQI = 0;
-                        for(int j=index; j<point; j++){
-                            String aqiToday = response.getJSONArray("list").getJSONObject(j).getJSONObject("main").getString("aqi");
-                            int aqi = Integer.parseInt(aqiToday);
-                            sumAQI += aqi;
+                            for (int i = 0; i < dataList.length(); i++) {
+                                JSONObject data = dataList.getJSONObject(i);
+                                listaqi.add(data.getInt("aqi"));
+                                listdate.add(data.getString("timestamp_local"));
+                            }
 
+                            int count = 0;
+                            int count2 = 0;
+                            int sumAQI = listaqi.get(0);
+                            int averageAQI = 0;
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+                            for (int i = 0; i < listdate.size(); i++) {
+                                count++;
+                                if(i<listdate.size()-1){
+                                    Date date = sdf.parse(listdate.get(i));
+                                    Date date2 = sdf.parse(listdate.get(i + 1));
+                                    if (date.compareTo(date2)==0) {
+                                        sumAQI += listaqi.get(i+1);
+                                    }else {
+                                        averageAQI = sumAQI/count;
+                                        switch (count2){
+                                            case 0:
+                                                todayv.setText(String.valueOf(averageAQI));
+                                                setTextViewWithColor(todayv,averageAQI);
+                                                setTextViewWithColor(lvl, averageAQI);
+                                                int color = lvl.getCurrentTextColor();
+                                                if (color == ContextCompat.getColor(requireContext(), R.color.GOOD)) {
+                                                    lvl.setText("GOOD");
+                                                } else if (color == ContextCompat.getColor(requireContext(), R.color.MODERATE)) {
+                                                    lvl.setText("MODERATE");
+                                                } else if (color == ContextCompat.getColor(requireContext(), R.color.POOR)) {
+                                                    lvl.setText("POOR");
+                                                } else if (color == ContextCompat.getColor(requireContext(), R.color.VERYPOOR)) {
+                                                    lvl.setText("VERY POOR");
+                                                } else if (color == ContextCompat.getColor(requireContext(), R.color.black)) {
+                                                    lvl.setText("HAZARDOUS");
+                                                }
+                                                break;
+                                            case 1:
+                                                tmrwv.setText(String.valueOf(averageAQI));
+                                                setTextViewWithColor(tmrwv,averageAQI);
+                                                break;
+                                            case 2:
+                                                tmrw2v.setText(String.valueOf(averageAQI));
+                                                setTextViewWithColor(tmrw2v,averageAQI);
+                                                break;
+                                            case 3:
+                                                tmrw3v.setText(String.valueOf(averageAQI));
+                                                setTextViewWithColor(tmrw3v,averageAQI);
+                                                break;
+                                        }
+                                        sumAQI=0;
+                                        count=0;
+                                        count2++;
+                                    }
+                                }else{
+                                    averageAQI = sumAQI/count;
+                                    tmrw3v.setText(String.valueOf(averageAQI));
+                                    setTextViewWithColor(tmrw3v,averageAQI);
+                                }
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                        int averageAQI = sumAQI/20;
-                        switch (i) {
-                            case (0):
-                                todayv.setText("" + averageAQI);
-                                setTextViewWithColor(lvl,averageAQI);
-                                break;
-                            case (1):
-                                tmrwv.setText("" + averageAQI);
-                                break;
-                            case (2):
-                                tmrw2v.setText("" + averageAQI);
-                                break;
-                            case (3):
-                                tmrw3v.setText("" + averageAQI);
-                                break;
-                        }
-                        index += 20;
-                        point += 20;
                     }
-
-
-
-                } catch (JSONException e) {
-                    Toast.makeText(getActivity().getApplicationContext(),""+e,Toast.LENGTH_LONG).show();
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Handle errors
+                    }
                 }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-
-        RequestQueue referenceQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
-        referenceQueue.add(jsonObjectRequest);
-
+        );
+        requestQueue.add(jsonObjectRequest);
 
     }
+
 
     public void setTextViewWithColor(TextView textView, int averageAQI) {
-        switch (averageAQI) {
-            case 1:
-                textView.setText("Good");
-                textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.GOOD));
-
-                break;
-            case 2:
-                textView.setText("Fair");
-                textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.FAIR));
-
-                break;
-            case 3:
-                textView.setText("Moderate");
-                textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.MODERATE));
-
-                break;
-            case 4:
-                textView.setText("Poor");
-                textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.POOR));
-
-                break;
-            case 5:
-                textView.setText("Very Poor");
-                textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.VERYPOOR));
-
-                break;
-        }
+        if(averageAQI<51) {
+            textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.GOOD));}
+        else if(averageAQI<101){
+            textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.MODERATE));}
+        else if(averageAQI<151){
+            textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.POOR));}
+        else if(averageAQI<201){
+            textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.VERYPOOR));}
+        else{
+            textView.setTextColor(ContextCompat.getColor(requireContext(),R.color.black));}
     }
+
+//    public void setTextViewWithColor(TextView textView, int averageAQI) {
+//        switch (averageAQI) {
+//            case 1:
+//                textView.setText("Good");
+//                textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.GOOD));
+//
+//                break;
+//            case 2:
+//                textView.setText("Fair");
+//                textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.FAIR));
+//
+//                break;
+//            case 3:
+//                textView.setText("Moderate");
+//                textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.MODERATE));
+//
+//                break;
+//            case 4:
+//                textView.setText("Poor");
+//                textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.POOR));
+//
+//                break;
+//            case 5:
+//                textView.setText("Very Poor");
+//                textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.VERYPOOR));
+//
+//                break;
+//        }
+//    }
 
 
 

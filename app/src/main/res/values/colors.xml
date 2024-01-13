@@ -2,7 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="GOOD">#59FF00</color>
+    <color name="GOOD">#008505</color>
     <color name="FAIR">#D2FF2F</color>
     <color name="MODERATE">#FFC800</color>
     <color name="POOR">#FF4B04</color>

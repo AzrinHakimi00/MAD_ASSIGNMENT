@@ -101,8 +101,8 @@ public class UserProfile extends Fragment {
         database = FirebaseDatabase.getInstance();
         profileImageView = view.findViewById(R.id.profilePicture);
         btnChangeProfile = view.findViewById(R.id.btnChangeProfile);
-//        getUsername();
-//        getEmail();
+        getUsername();
+        getEmail();
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
@@ -126,7 +126,7 @@ public class UserProfile extends Fragment {
         progressDialog.show();
 
         // Check if the user has a profile picture URL in the database
-        databaseReference.child("profilePictureUrl").get().addOnCompleteListener(task -> {
+        databaseReference.child("profilePicture").get().addOnCompleteListener(task -> {
             progressDialog.dismiss(); // Dismiss the progress dialog
 
             if (task.isSuccessful() && task.getResult() != null) {
@@ -177,7 +177,7 @@ public class UserProfile extends Fragment {
                             // Image uploaded successfully, get download URL
                             storageReference.getDownloadUrl().addOnSuccessListener(uri -> {
                                 // Update user's profile picture URL in the database
-                                databaseReference.child("profilePictureUrl").setValue(uri.toString());
+                                databaseReference.child("profilePicture").setValue(uri.toString());
                                 Toast.makeText(requireActivity(), "Profile picture uploaded successfully", Toast.LENGTH_SHORT).show();
                             });
                         } else {
@@ -194,54 +194,54 @@ public class UserProfile extends Fragment {
     }
 
 
-//    private void getUsername(){
-//        assert firebaseUser != null;
-//        String uid = firebaseUser.getUid();
-//        DatabaseReference myRef = database.getReference("Users Account/"+uid+"/usename");
-//
-//        myRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                // This method is called once with the initial value and whenever data at this location is updated
-//                // Parse the data from dataSnapshot
-//                String username = dataSnapshot.getValue(String.class);
-//                TextView name = requireView().findViewById(R.id.ETusername);
-//                name.setText(username);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                // Failed to read value
-//                Log.w("Firebase", "Failed to read value.", error.toException());
-//            }
-//        });
-//    }
-//
-//
-//
-//    private void getEmail(){
-//        assert firebaseUser != null;
-//        String uid = firebaseUser.getUid();
-//        DatabaseReference myRef = database.getReference("Users Account/"+uid+"/email");
-//
-//        myRef.addValueEventListener(new ValueEventListener() {
-//            @SuppressLint("SetTextI18n")
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                // This method is called once with the initial value and whenever data at this location is updated
-//                // Parse the data from dataSnapshot
-//                String username = dataSnapshot.getValue(String.class);
-//                TextView name = requireView().findViewById(R.id.email);
-//                name.setText("Email : "+username);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                // Failed to read value
-//                Log.w("Firebase", "Failed to read value.", error.toException());
-//            }
-//        });
-//    }
+    private void getUsername(){
+        assert firebaseUser != null;
+        String uid = firebaseUser.getUid();
+        DatabaseReference myRef = database.getReference("Users Account/"+uid+"/username");
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and whenever data at this location is updated
+                // Parse the data from dataSnapshot
+                String username = dataSnapshot.getValue(String.class);
+                TextView name = requireView().findViewById(R.id.username);
+                name.setText(username);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Failed to read value
+                Log.w("Firebase", "Failed to read value.", error.toException());
+            }
+        });
+    }
+
+
+
+    private void getEmail(){
+        assert firebaseUser != null;
+        String uid = firebaseUser.getUid();
+        DatabaseReference myRef = database.getReference("Users Account/"+uid+"/email");
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and whenever data at this location is updated
+                // Parse the data from dataSnapshot
+                String username = dataSnapshot.getValue(String.class);
+                TextView name = requireView().findViewById(R.id.email);
+                name.setText("Email : "+username);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Failed to read value
+                Log.w("Firebase", "Failed to read value.", error.toException());
+            }
+        });
+    }
 
 
 

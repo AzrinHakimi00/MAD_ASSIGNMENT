@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".HomePage.AirPollutant"
     android:orientation="vertical"
+    android:background="#2e2e2e"
     android:gravity="top|center">
 
     <TextView
@@ -77,7 +78,7 @@
                 android:layout_height="50dp"
                 android:paddingTop="15dp"
                 android:textAlignment="center"
-                android:text="O3"
+                android:text="O₃"
                 android:background="#FAFFC4"
                 android:textColor="#000000"
                 android:textSize="20sp"
@@ -100,7 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:paddingTop="15dp"
-                android:text="SO2"
+                android:text="SO₂"
                 android:textAlignment="center"
                 android:background="#FFD89F"
                 android:textColor="#000000"
@@ -155,7 +156,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:paddingTop="15dp"
-                android:text="NO2"
+                android:text="NO₂"
                 android:textAlignment="center"
                 android:background="#F6BFFF"
                 android:textColor="#000000"

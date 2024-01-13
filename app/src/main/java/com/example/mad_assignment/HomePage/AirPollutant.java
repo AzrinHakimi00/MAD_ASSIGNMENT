@@ -124,28 +124,22 @@ public class AirPollutant extends Fragment {
         String savedLatitude = sharedPreferences.getString("latitude", "-");
         String savedLongitude = sharedPreferences.getString("longitude", "-");
 
-        String apiKey = "f6b0e9e985d5c35e9e2834c0546415e1";
-        String apiUrl = "https://api.openweathermap.org/data/2.5/air_pollution?lat="+savedLatitude+"&lon="+savedLongitude+"&appid="+apiKey;     //must implement com.android.volley:volley:1.2.1
+        String apiKey = "bfae835a587c463187d4178050f47717";
+        String apiUrl = "https://api.weatherbit.io/v2.0/current/airquality?lat=" + savedLatitude + "&lon=" + savedLongitude +"&key="+ apiKey;     //must implement com.android.volley:volley:1.2.1
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(apiUrl, new Response.Listener<JSONObject>() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    JSONObject mainObject = response.getJSONArray("list").getJSONObject(0).getJSONObject("main");
-                    int aqiValue = mainObject.getInt("aqi");
+                    JSONObject mainObject = response.getJSONArray("data").getJSONObject(0);
 
-                    // Display the AQI information using the provided context
-                    String aqiMessage = "Air Quality Index: " + aqiValue;
-                    //Toast.makeText(getApplicationContext(), aqiMessage, Toast.LENGTH_SHORT).show();
 
-                    JSONObject componentObject = response.getJSONArray("list").getJSONObject(0).getJSONObject("components");
-
-                    PM10.setText(""+componentObject.getDouble("pm10"));
-                    PM2_5.setText(""+componentObject.getDouble("pm2_5"));
-                    O3.setText(""+componentObject.getDouble("o3"));
-                    NO2.setText(""+componentObject.getDouble("no2"));
-                    SO2.setText(""+componentObject.getDouble("so2"));
-                    CO.setText(""+componentObject.getDouble("co"));
+                    PM10.setText(""+mainObject.getDouble("pm10"));
+                    PM2_5.setText(""+mainObject.getDouble("pm25"));
+                    O3.setText(""+mainObject.getDouble("o3"));
+                    NO2.setText(""+mainObject.getDouble("no2"));
+                    SO2.setText(""+mainObject.getDouble("so2"));
+                    CO.setText(""+mainObject.getDouble("co"));
 
                 } catch (JSONException e) {
                     throw new RuntimeException(e);

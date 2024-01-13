@@ -103,15 +103,17 @@ public class SignUpPage extends AppCompatActivity {
 //                                            SharedPreferences.Editor editor = sharedPreferences.edit();
 //                                            editor.putString("Username", username);
 //                                            editor.putString("Email", email);
+                                            String defaultProfilePic = "https://firebasestorage.googleapis.com/v0/b/mad-assignment-1a67d.appspot.com/o/man.png?alt=media&token=25e85a6b-5e4d-4d46-b226-840088aebeeb";
 
                                             HashMap<String,String> map = new HashMap<>();
-                                            map.put("usename",username);
+                                            map.put("username",username);
                                             map.put("email",email);
                                             map.put("password",password);
+                                            map.put("profilePicture",defaultProfilePic);
 
                                             reference.setValue(map);
 
-                                            Toast.makeText(getApplicationContext(), "Sign up successful. Please verfy you email.", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getApplicationContext(), "Sign up successful. Please verify you email.", Toast.LENGTH_SHORT).show();
                                             startActivity(new Intent(SignUpPage.this,VerificationPage.class));
                                         }
                                         else{

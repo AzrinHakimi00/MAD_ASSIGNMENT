@@ -96,11 +96,6 @@ public class MainPage extends AppCompatActivity implements LocationListener {
 
     }
 
-    private void loadMainFragment() {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.FCVmainpage, new HomeFragment())
-                .commit();
-    }
 
     @Override
     public void onBackPressed() {
@@ -173,6 +168,7 @@ public class MainPage extends AppCompatActivity implements LocationListener {
             editor.putString("Address",addresses.get(0).getAddressLine(0));
             editor.putString("Latitude", String.valueOf(location.getLatitude()));
             editor.putString("Longitude", String.valueOf(location.getLongitude()));
+            editor.commit();
 
 
             HashMap<String,String> loc = new HashMap<>();
@@ -189,55 +185,7 @@ public class MainPage extends AppCompatActivity implements LocationListener {
         }
     }
 
-    public void AddForumMember(){
 
-// Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-
-// Define the URL
-        String url = "https://api.chatengine.io/chats/{{chat_id}}/people/";
-
-// Create a JSONObject for the request body
-        JSONObject requestBody = new JSONObject();
-        try {
-            requestBody.put("username", "bob_baker");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-// Create a POST request
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, requestBody,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        // Handle the response
-                        Log.d("Response", response.toString());
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // Handle errors
-                        Log.e("Error", "Error occurred", error);
-                    }
-                }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                // Add headers
-                Map<String, String> headers = new HashMap<>();
-                headers.put("Content-Type", "application/json");
-                headers.put("Project-ID", "121180d3-8c29-47ae-a10e-7371c876b528");
-                headers.put("User-Name", "{{user_name}}");
-                headers.put("User-Secret", "{{user_secret}}");
-                return headers;
-            }
-        };
-
-// Add the request to the RequestQueue.
-        queue.add(jsonObjectRequest);
-
-
-    }
 
 
 }

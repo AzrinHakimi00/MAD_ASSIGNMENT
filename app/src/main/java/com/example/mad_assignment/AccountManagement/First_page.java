@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -148,7 +149,11 @@ public class First_page extends AppCompatActivity {
 
                     map.put("id",user.getUid());
                     map.put("username",user.getDisplayName());
-                    map.put("profile",user.getPhotoUrl().toString());
+                    map.put("email",user.getEmail());
+                    map.put("profilePicture",user.getPhotoUrl().toString());
+
+
+
 
                     database.getReference().child("Users Account").child(user.getUid()).setValue(map);
 

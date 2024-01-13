@@ -11,16 +11,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.transition.TransitionInflater;
 
 import com.example.mad_assignment.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -37,13 +41,23 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class ForumFragment extends Fragment {
 
+    private static final int YOUR_MAX_POST_LENGTH = 150;
     private DatabaseReference databaseReference;
     private ArrayList<Adapter> itemList;
 
     CustomAdapter adapter;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        TransitionInflater inflater = TransitionInflater.from(requireContext());
+        setEnterTransition(inflater.inflateTransition(R.transition.slide_left));
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,6 +72,19 @@ public class ForumFragment extends Fragment {
 
         // Replace "forum" with your Firebase database node name
         databaseReference = FirebaseDatabase.getInstance().getReference("forum");
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                DiscussionFragment discussionFragment = new DiscussionFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("Topic", itemList.get(position).post);
+                bundle.putString("Username",itemList.get(position).name);
+                discussionFragment.setArguments(bundle);
+
+                Navigation.findNavController(requireView()).navigate(R.id.discussionFragment,bundle);
+            }
+        });
 
         return view;
     }
@@ -114,6 +141,7 @@ public class ForumFragment extends Fragment {
         // Find views in the dialog layout
         EditText postEditText = dialogView.findViewById(R.id.postEditText);
         EditText authorName = dialogView.findViewById(R.id.nameAuthor);
+
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setView(dialogView);
@@ -127,18 +155,22 @@ public class ForumFragment extends Fragment {
                 String newPost = postEditText.getText().toString().trim();
                 String name = authorName.getText().toString().trim();
 
-                long timestamp = System.currentTimeMillis();
+                // Check if the post is too long
+                if (newPost.length() > YOUR_MAX_POST_LENGTH) {
+                    // Display an error message or handle the situation accordingly
+                    Toast.makeText(requireContext(), "Post is too long", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
+                long timestamp = System.currentTimeMillis();
 
                 DatabaseReference newTopicRef = databaseReference.push();
                 newTopicRef.child("post").setValue(newPost);
                 newTopicRef.child("name").setValue(name);
                 newTopicRef.child("timestamp").setValue(timestamp);
 
-
-
-                    // Ensure UI updates are on the UI thread
-                    requireActivity().runOnUiThread(() -> adapter.notifyDataSetChanged());
+                // Ensure UI updates are on the UI thread
+                requireActivity().runOnUiThread(() -> adapter.notifyDataSetChanged());
             }
         });
 
@@ -234,28 +266,9 @@ public class ForumFragment extends Fragment {
         }
     }
 
-    public interface UserNameCallback {
-        void onUserNameReceived(String userName);
-    }
 
-    public void getuserName(UserNameCallback callback) {
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users Account");
 
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String username = snapshot.child("username").getValue(String.class);
 
-                // Pass the result to the callback
-                callback.onUserNameReceived(username);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                // Handle cancellation
-            }
-        });
-    }
 
 }
 
