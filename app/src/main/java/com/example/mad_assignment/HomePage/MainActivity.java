@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder, Su
         super.onCreate(savedInstanceState);
 
         // Set the initial content view to start_game layout
-        setContentView(R.layout.start_game);
+        setContentView(R.layout.activity_start_game);
 
         // Getting the start button from XML
         ImageView startButton = findViewById(R.id.startImage);
@@ -76,6 +76,16 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder, Su
             public void onClick(View v) {
                 // Switch to the main activity layout
                 setContentView(R.layout.activity_game_page);
+
+                Button homeButton1 = findViewById(R.id.homeButton2);
+                homeButton1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // Handle button click and navigate to fragment_home.xml (or HomeActivity, if it's an Activity)
+                        Intent intent = new Intent(MainActivity.this, HomeFragment.class);
+                        startActivity(intent);
+                    }
+                });
 
                 // Initialize UI components from activity_main.xml
                 surfaceView = findViewById(R.id.surfaceView);
@@ -136,6 +146,8 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder, Su
                 startActivity(intent);
             }
         });
+
+
 
     }
 
