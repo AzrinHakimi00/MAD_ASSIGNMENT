@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#2e2e2e"
-    android:padding="16dp">
+    android:padding="4dp">
 
     <!-- Topic TextView -->
     <TextView
@@ -27,8 +27,8 @@
         android:textStyle="bold"/>
 
     <!-- Comments ListView -->
-    <ListView
-        android:id="@+id/commentsListView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/commentsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"

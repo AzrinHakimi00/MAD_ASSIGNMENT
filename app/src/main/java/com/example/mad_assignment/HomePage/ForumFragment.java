@@ -24,6 +24,8 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.transition.TransitionInflater;
 
 import com.example.mad_assignment.R;
@@ -49,8 +51,9 @@ public class ForumFragment extends Fragment {
     private static final int YOUR_MAX_POST_LENGTH = 150;
     private DatabaseReference databaseReference;
     private ArrayList<Adapter> itemList;
-
+    RecyclerView recyclerView;
     CustomAdapter adapter;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,26 +68,28 @@ public class ForumFragment extends Fragment {
 
 
 
-        ListView listView = view.findViewById(R.id.listView);
+        recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         itemList = new ArrayList<>();
-        adapter = new CustomAdapter(requireContext(), R.layout.forum_list_item, itemList);
-        listView.setAdapter(adapter);
+        adapter = new CustomAdapter(requireContext(), itemList);
+        recyclerView.setAdapter(adapter);
 
         // Replace "forum" with your Firebase database node name
         databaseReference = FirebaseDatabase.getInstance().getReference("forum");
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        adapter.setOnItemClickListener(new CustomAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(Adapter item) {
                 DiscussionFragment discussionFragment = new DiscussionFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("Topic", itemList.get(position).post);
-                bundle.putString("Username",itemList.get(position).name);
+                bundle.putString("Topic", item.post);
+                bundle.putString("Username", item.name);
                 discussionFragment.setArguments(bundle);
 
-                Navigation.findNavController(requireView()).navigate(R.id.discussionFragment,bundle);
+                Navigation.findNavController(requireView()).navigate(R.id.discussionFragment, bundle);
             }
         });
+
 
         return view;
     }
@@ -202,37 +207,37 @@ public class ForumFragment extends Fragment {
         }
     }
 
-    private class CustomAdapter extends ArrayAdapter<Adapter> {
-        private ArrayList<Adapter> items;
 
-        public CustomAdapter(Context context, int resourceId, ArrayList<Adapter> items) {
-            super(context, resourceId, items);
+
+
+    private static class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
+        private ArrayList<Adapter> items;
+        private OnItemClickListener onItemClickListener;
+
+        public CustomAdapter(Context context, ArrayList<Adapter> items) {
             this.items = items;
         }
 
+        public void setOnItemClickListener(OnItemClickListener listener) {
+            this.onItemClickListener = listener;
+        }
+
+
         @NonNull
         @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.forum_list_item, parent, false);
-            }
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.forum_list_item, parent, false);
+            return new ViewHolder(view);
+        }
 
-            TextView nameTextView = convertView.findViewById(R.id.nameTextView);
-            TextView postTextView = convertView.findViewById(R.id.postTextView);
-            TextView timestampTextView = convertView.findViewById(R.id.timestampTextView);
-
+        @Override
+        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             Adapter currentItem = items.get(position);
 
-            nameTextView.setText(currentItem.name);
-            postTextView.setText(currentItem.post);
+            holder.nameTextView.setText(currentItem.name);
+            holder.postTextView.setText(currentItem.post);
+            holder.timestampTextView.setText(formatTimestamp(currentItem.timestamp));
 
-            // Format timestamp as needed
-            String formattedTimestamp = formatTimestamp(currentItem.timestamp);
-            timestampTextView.setText(formattedTimestamp);
-
-
-
-            // Set different background colors based on position
             int colorRes;
             switch (position % 5) {
                 case 0:
@@ -253,22 +258,47 @@ public class ForumFragment extends Fragment {
                 default:
                     colorRes = R.color.color1; // Add a default color if needed
             }
-            convertView.setBackgroundColor(ContextCompat.getColor(getContext(), colorRes));
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), colorRes));
+        }
 
-            return convertView;
+        public interface OnItemClickListener {
+            void onItemClick(Adapter item);
+        }
+
+        @Override
+        public int getItemCount() {
+            return items.size();
         }
 
         // Add a method to format the timestamp
         private String formatTimestamp(long timestamp) {
-            // Implement the logic to format the time (e.g., using SimpleDateFormat)
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
             return sdf.format(new Date(timestamp));
         }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            TextView nameTextView, postTextView, timestampTextView;
+
+            public ViewHolder(@NonNull View itemView) {
+                super(itemView);
+                nameTextView = itemView.findViewById(R.id.nameTextView);
+                postTextView = itemView.findViewById(R.id.postTextView);
+                timestampTextView = itemView.findViewById(R.id.timestampTextView);
+
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onItemClickListener != null) {
+                            int position = getAdapterPosition();
+                            if (position != RecyclerView.NO_POSITION) {
+                                onItemClickListener.onItemClick(items.get(position));
+                            }
+                        }
+                    }
+                });
+            }
+        }
     }
-
-
-
-
 
 }
 

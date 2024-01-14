@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.transition.TransitionInflater;
 
 import android.text.TextUtils;
@@ -51,11 +53,10 @@ public class DiscussionFragment extends Fragment {
     private TextView topicTextView , topicCreatorTV;
     private EditText commentEditText;
     private Button addCommentButton;
-    private ListView commentsListView;
-
     private DatabaseReference discussionReference;
     private ArrayList<Comment> commentList;
     private CustomCommentAdapter commentAdapter;
+    RecyclerView commentsRecyclerView;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
 
@@ -78,12 +79,14 @@ public class DiscussionFragment extends Fragment {
         topicTextView = view.findViewById(R.id.topicTextView);
         commentEditText = view.findViewById(R.id.commentEditText);
         addCommentButton = view.findViewById(R.id.addCommentButton);
-        commentsListView = view.findViewById(R.id.commentsListView);
         topicCreatorTV = view.findViewById(R.id.topicCreatorTextView);
 
+        commentsRecyclerView = view.findViewById(R.id.commentsRecyclerView);
+        commentsRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         commentList = new ArrayList<>();
-        commentAdapter = new CustomCommentAdapter(requireContext(), R.layout.comment_list_item, commentList);
-        commentsListView.setAdapter(commentAdapter);
+        commentAdapter = new CustomCommentAdapter(requireContext(), commentList);
+        commentsRecyclerView.setAdapter(commentAdapter);
+
 
         Bundle bundle = getArguments();
         if (bundle != null) {
@@ -225,37 +228,34 @@ public class DiscussionFragment extends Fragment {
         }
     }
 
-    private class CustomCommentAdapter extends ArrayAdapter<DiscussionFragment.Comment> {
+    private class CustomCommentAdapter extends RecyclerView.Adapter<CustomCommentAdapter.ViewHolder> {
 
-        private ArrayList<DiscussionFragment.Comment> commentItems;
+        private ArrayList<Comment> commentItems;
 
-        public CustomCommentAdapter(Context context, int resourceId, ArrayList<DiscussionFragment.Comment> items) {
-            super(context, resourceId, items);
+        public CustomCommentAdapter(Context context, ArrayList<Comment> items) {
             this.commentItems = items;
         }
 
+        // ... (Other methods)
+
         @NonNull
         @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.comment_list_item, parent, false);
-            }
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.comment_list_item, parent, false);
+            return new ViewHolder(view);
+        }
 
-            TextView usernameTextView = convertView.findViewById(R.id.nameTextView);
-            TextView commentTextView = convertView.findViewById(R.id.postTextView);
-            TextView timestampTextView = convertView.findViewById(R.id.timestampTextView);
-            CircleImageView profilePicture = convertView.findViewById(R.id.profilePicture);
+        @Override
+        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+            Comment currentComment = commentItems.get(position);
+            holder.loadProfilePicture(currentComment.uid);
 
-
-            DiscussionFragment.Comment currentComment = commentItems.get(position);
-            loadProfilePicture(profilePicture, currentComment.uid);
-
-            usernameTextView.setText(currentComment.username);
-            commentTextView.setText(currentComment.comment);
+            holder.usernameTextView.setText(currentComment.username);
+            holder.commentTextView.setText(currentComment.comment);
 
             // Format timestamp as needed
             String formattedTimestamp = formatTimestamp(currentComment.timestamp);
-            timestampTextView.setText(formattedTimestamp);
+            holder.timestampTextView.setText(formattedTimestamp);
 
             // Set different background colors based on position
             int colorRes;
@@ -269,30 +269,47 @@ public class DiscussionFragment extends Fragment {
                 default:
                     colorRes = R.color.color3; // Add a default color if needed
             }
-            convertView.setBackgroundColor(ContextCompat.getColor(getContext(), colorRes));
-
-            return convertView;
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(requireContext(), colorRes));
         }
 
-        // Add a method to format the timestamp (similar to ForumFragment)
+        @Override
+        public int getItemCount() {
+            return commentItems.size();
+        }
+
         private String formatTimestamp(long timestamp) {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
             return sdf.format(new Date(timestamp));
         }
 
-        private void loadProfilePicture(CircleImageView profilePicture, String uid) {
-            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users Account").child(uid);
-            userRef.child("profilePicture").get().addOnCompleteListener(task -> {
-                if (task.isSuccessful() && task.getResult() != null) {
-                    String profilePictureUrl = task.getResult().getValue(String.class);
-                    if (profilePictureUrl != null && !profilePictureUrl.isEmpty()) {
-                        // Load the existing profile picture using Picasso or any other image loading library
-                        Picasso.get().load(profilePictureUrl).into(profilePicture);
-                    }
-                }
-            });
-        }
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            TextView usernameTextView, commentTextView, timestampTextView;
+            CircleImageView profilePicture;
 
+            public ViewHolder(@NonNull View itemView) {
+                super(itemView);
+                usernameTextView = itemView.findViewById(R.id.nameTextView);
+                commentTextView = itemView.findViewById(R.id.postTextView);
+                timestampTextView = itemView.findViewById(R.id.timestampTextView);
+                profilePicture = itemView.findViewById(R.id.profilePicture);
+            }
+
+
+
+            // Add this method to load profile picture
+            private void loadProfilePicture(String uid) {
+                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users Account").child(uid);
+                userRef.child("profilePicture").get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && task.getResult() != null) {
+                        String profilePictureUrl = task.getResult().getValue(String.class);
+                        if (profilePictureUrl != null && !profilePictureUrl.isEmpty()) {
+                            // Load the existing profile picture using Picasso or any other image loading library
+                            Picasso.get().load(profilePictureUrl).into(profilePicture);
+                        }
+                    }
+                });
+            }
+        }
     }
 
 }

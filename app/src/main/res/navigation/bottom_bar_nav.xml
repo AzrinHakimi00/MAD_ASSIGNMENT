@@ -71,10 +71,19 @@
     <fragment
         android:id="@+id/achievementFragment"
         android:name="com.example.mad_assignment.HomePage.AchievementFragment"
-        android:label="AchievementFragment" />
+        android:label="Achievement" />
     <fragment
         android:id="@+id/discussionFragment"
         android:name="com.example.mad_assignment.HomePage.DiscussionFragment"
         android:label="Disscussion"
         tools:layout="@layout/fragment_discussion" />
+    <fragment
+        android:id="@+id/alertFragment"
+        android:name="com.example.mad_assignment.HomePage.AlertFragment"
+        android:label="Alert"
+        tools:layout="@layout/fragment_alert" />
+    <fragment
+        android:id="@+id/alertListFragment"
+        android:name="com.example.mad_assignment.HomePage.AlertListFragment"
+        android:label="Alert" />
 </navigation>

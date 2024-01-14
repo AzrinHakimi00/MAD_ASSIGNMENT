@@ -4,15 +4,14 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-
     android:background="@drawable/curve_corner_10dp"
-    android:layout_margin="8dp">
+    android:layout_margin="4dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"
-        app:cardCornerRadius="3dp"
+        app:cardCornerRadius="8dp"
         app:cardElevation="3dp"
         app:cardUseCompatPadding="true">
 

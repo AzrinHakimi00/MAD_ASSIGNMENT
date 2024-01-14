@@ -100,6 +100,8 @@ public class HomeFragment extends Fragment{
         weatherWidget.setBackground(gradientDrawable);
         gradientDrawable.setCornerRadius(50);
 
+        weatherWidget.setOnClickListener(v -> {Navigation.findNavController(requireView()).navigate(R.id.alertFragment);});
+
 
         LinearLayout aqiWidget = view.findViewById(R.id.AirQualityWidget);
         aqiWidget.setOnClickListener(v -> {Navigation.findNavController(view).navigate(R.id.AQIFragment);});
@@ -237,73 +239,6 @@ public class HomeFragment extends Fragment{
 
         }
     }
-//    public void AQI(){
-//        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyLocation", Context.MODE_PRIVATE);
-//        String savedLatitude = sharedPreferences.getString("latitude", "-");
-//        String savedLongitude = sharedPreferences.getString("longitude", "-");
-//
-//        String apiKey = "f6b0e9e985d5c35e9e2834c0546415e1";
-//        String apiUrl = "https://api.openweathermap.org/data/2.5/air_pollution/forecast?lat="+savedLatitude+"&lon="+savedLongitude+"&appid="+apiKey;
-//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(apiUrl, new Response.Listener<JSONObject>() {
-//            @SuppressLint("SetTextI18n")
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                try {
-//                    int sumAQI = 0;
-//                    for (int j = 0; j < 20; j++) {
-//                        String aqiToday = response.getJSONArray("list").getJSONObject(j).getJSONObject("main").getString("aqi");
-//                        int aqi = Integer.parseInt(aqiToday);
-//                        sumAQI += aqi;
-//                    }
-//                    int averageAQI = sumAQI / 20;
-//                    AQI = averageAQI;
-//
-//                    aqi.setText(""+averageAQI);
-//                    switch (averageAQI) {
-//                        case 1:
-//                            //aqi1.setVisibility(View.VISIBLE);
-//                            level.setText("Good");
-//                            level.setTextColor(getResources().getColor(R.color.GOOD));
-//                            break;
-//                        case 2:
-//                            //aqi2.setVisibility(View.VISIBLE);
-//                            level.setText("Fair");
-//                            level.setTextColor(getResources().getColor(R.color.FAIR));
-//                            break;
-//                        case 3:
-//                            //aqi3.setVisibility(View.VISIBLE);
-//                            level.setText("Moderate");
-//                            level.setTextColor(getResources().getColor(R.color.MODERATE));
-//
-//                            break;
-//                        case 4:
-//                            //aqi4.setVisibility(View.VISIBLE);
-//                            level.setText("Poor");
-//                            level.setTextColor(getResources().getColor(R.color.POOR));
-//                            break;
-//                        case 5:
-//                            //aqi5.setVisibility(View.VISIBLE);
-//                            level.setText("Very Poor");
-//                            level.setTextColor(getResources().getColor(R.color.VERYPOOR));
-//                            break;
-//                    }
-//
-//                } catch (JSONException e) {
-//                    throw new RuntimeException(e);
-//                }
-//
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//
-//            }
-//        });
-//
-//        RequestQueue referenceQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
-//        referenceQueue.add(jsonObjectRequest);
-//
-//    }
 
     public void AQI() {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyLocation", Context.MODE_PRIVATE);
