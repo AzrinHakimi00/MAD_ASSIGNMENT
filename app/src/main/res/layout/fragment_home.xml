@@ -6,7 +6,6 @@
     android:layout_height="wrap_content"
     tools:context=".HomePage.HomeFragment"
     android:id="@+id/HomeFrag"
-    android:layout_marginBottom="20dp"
     android:background="#163020"
     >
 
@@ -118,6 +117,7 @@
                     android:fontFamily="@font/mulishfont"
                     android:text="Track your carbon emission"
                     android:textSize="17dp"
+                    android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

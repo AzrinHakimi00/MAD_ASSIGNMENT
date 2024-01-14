@@ -81,28 +81,36 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:translationZ="20dp"
-        android:background="#2e2e2e"
+        android:background="@color/BGColor"
         android:gravity="center|top"
         android:visibility="invisible">
 
-        <WebView
-            android:id="@+id/carbonInfo"
-            android:layout_width="match_parent"
-            android:layout_height="600dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:background="#2e2e2e"
-            android:translationZ="1dp"
-            />
 
-        <Button
-            android:id="@+id/closeBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="close"
-            android:backgroundTint="@color/color3"
-            android:textColor="@color/black"/>
+            <WebView
+                android:id="@+id/carbonInfo"
+                android:layout_width="match_parent"
+                android:layout_height="520dp"
+
+                android:layout_margin="20dp"
+                android:background="#2e2e2e"
+                android:translationZ="1dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </WebView>
+
+            <ImageButton
+                android:id="@+id/closeBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/color3"
+                android:src="@drawable/close"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/carbonInfo" />
+
+
+
     </LinearLayout>
 
 

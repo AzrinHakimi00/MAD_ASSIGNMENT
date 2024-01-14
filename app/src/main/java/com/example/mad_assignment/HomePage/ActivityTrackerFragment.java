@@ -88,7 +88,7 @@ public class ActivityTrackerFragment extends Fragment {
             web.loadUrl("https://clevercarbon.io/carbon-footprint-of-common-items/");
         });
 
-        Button closeBtN = view.findViewById(R.id.closeBtn);
+        ImageButton closeBtN = view.findViewById(R.id.closeBtn);
         closeBtN.setOnClickListener(v -> {webView.setVisibility(View.GONE);});
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
