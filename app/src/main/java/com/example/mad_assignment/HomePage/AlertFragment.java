@@ -86,6 +86,7 @@ public class AlertFragment extends Fragment {
 
         time1 = view.findViewById(R.id.Alert_Time);
         message = view.findViewById(R.id.Message);
+        location = view.findViewById(R.id.location);
         weather = view.findViewById(R.id.Weather);
         alert = view.findViewById(R.id.Alert);
         advice = view.findViewById(R.id.Advice);
@@ -104,6 +105,9 @@ public class AlertFragment extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyLocation", Context.MODE_PRIVATE);
         String savedLatitude = sharedPreferences.getString("latitude", "-");
         String savedLongitude = sharedPreferences.getString("longitude", "-");
+        String savedAddress = sharedPreferences.getString("Address", "-");
+
+        location.setText(savedAddress);
 
         String apiKey = "bfae835a587c463187d4178050f47717";
         String apiUrl = "https://api.weatherbit.io/v2.0/forecast/hourly?lat="+savedLatitude+"&lon="+savedLongitude+"&key=" + apiKey+"&hours=72";

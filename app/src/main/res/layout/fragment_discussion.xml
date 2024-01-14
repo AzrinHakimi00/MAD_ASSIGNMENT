@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/inriasansbold"
+        android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"/>
 
@@ -23,6 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/mulishfont"
+        android:textColor="@color/white"
         android:textSize="14sp"
         android:textStyle="bold"/>
 

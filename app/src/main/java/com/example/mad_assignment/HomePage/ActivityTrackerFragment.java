@@ -1,29 +1,21 @@
 package com.example.mad_assignment.HomePage;
 
-import android.animation.AnimatorInflater;
-import android.animation.ObjectAnimator;
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-import androidx.transition.TransitionInflater;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebChromeClient;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.transition.TransitionInflater;
 
 import com.example.mad_assignment.R;
 import com.google.firebase.auth.FirebaseAuth;
