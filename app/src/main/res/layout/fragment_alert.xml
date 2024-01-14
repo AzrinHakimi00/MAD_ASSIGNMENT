@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2e2e2e"
+    android:background="@color/BGColor"
     android:orientation="vertical"
     android:gravity="center|top"
     tools:context=".HomePage.AlertFragment">
@@ -69,6 +69,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="LIST ALERTS"
+        android:backgroundTint="#D5F0C1"
+        android:textColor="@color/black"
         android:layout_margin="30dp" />
 
     <TextView
@@ -83,7 +85,7 @@
         android:paddingBottom="20dp"
         android:text="There's no alert"
         android:fontFamily="@font/inriasansbold"
-        android:backgroundTint="@color/color2"
+        android:backgroundTint="#B6C4B6"
         android:textColor="@color/black"
         android:textAlignment="center"
         android:textSize="15sp" />

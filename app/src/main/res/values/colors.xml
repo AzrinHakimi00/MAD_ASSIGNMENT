@@ -8,7 +8,7 @@
     <color name="POOR">#FF4B04</color>
     <color name="VERYPOOR">#FF0000</color>
 
-    <color name="statusBarColor">#3DC3FF</color>
+    <color name="statusBarColor">#86A789</color>
 
     <!-- colors.xml -->
     <color name="color1"> #A8D5E2</color> <!-- Gold -->
@@ -16,5 +16,5 @@
     <color name="color3">#D7B377</color> <!-- Blue -->
     <color name="color4">#AAFAC8</color> <!-- Orange -->
     <color name="color5">#C7FFED</color> <!-- Purple -->
-
+    <color name="BGColor">#163020</color> <!-- Dark Green -->
 </resources>
