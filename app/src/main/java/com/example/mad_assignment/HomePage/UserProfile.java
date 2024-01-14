@@ -206,7 +206,7 @@ public class UserProfile extends Fragment {
                 // Parse the data from dataSnapshot
                 String username = dataSnapshot.getValue(String.class);
                 TextView name = requireView().findViewById(R.id.username);
-                name.setText(username);
+                name.setText("Username : "+username);
             }
 
             @Override
