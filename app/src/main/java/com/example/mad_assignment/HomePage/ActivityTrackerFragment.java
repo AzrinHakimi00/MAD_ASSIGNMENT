@@ -3,6 +3,7 @@ package com.example.mad_assignment.HomePage;
 import android.animation.AnimatorInflater;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,8 +15,13 @@ import androidx.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -42,34 +48,14 @@ public class ActivityTrackerFragment extends Fragment {
     private DatabaseReference databaseReference;
     private FirebaseUser currentUser;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public ActivityTrackerFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ActivityTrackerFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ActivityTrackerFragment newInstance(String param1, String param2) {
         ActivityTrackerFragment fragment = new ActivityTrackerFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -96,12 +82,42 @@ public class ActivityTrackerFragment extends Fragment {
         TVProgress = view.findViewById(R.id.TVProgress);
         PBCarbon = view.findViewById(R.id.PBCarbon);
 
+        LinearLayout webView = view.findViewById(R.id.webView);
+        ImageButton infoButton = view.findViewById(R.id.infoBtn);
+
+        infoButton.setOnClickListener(v -> {
+            WebView web = view.findViewById(R.id.carbonInfo);
+            webView.setVisibility(View.VISIBLE);
+            web.getSettings().setJavaScriptEnabled(true);
+            web.getSettings().setLoadWithOverviewMode(true);
+            web.getSettings().setUseWideViewPort(true);
+
+            // Load your URL here
+            web.loadUrl("https://clevercarbon.io/carbon-footprint-of-common-items/");
+        });
+
+        Button closeBtN = view.findViewById(R.id.closeBtn);
+        closeBtN.setOnClickListener(v -> {webView.setVisibility(View.GONE);});
+
         FirebaseAuth auth = FirebaseAuth.getInstance();
         currentUser = auth.getCurrentUser();
 
         if (currentUser != null) {
             // Change the child node to "carbon" under the user's UID
             databaseReference = FirebaseDatabase.getInstance().getReference("Points").child(currentUser.getUid()).child("carbon");
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    totalCarbon = snapshot.getValue(Double.class);
+                    TVResult.setText("Total carbon : "+totalCarbon + " g");
+                    updateProgressBar();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
         }
 
         loadProgressFromFirebase();
@@ -116,7 +132,7 @@ public class ActivityTrackerFragment extends Fragment {
                     double carbonInput = Double.parseDouble(userInput);
                     totalCarbon += carbonInput;
 
-                    TVResult.setText("Total Carbon: " + totalCarbon + " ppm");
+                    TVResult.setText("Total Carbon: " + totalCarbon + " g");
                     ETInput.setText("");
 
                     updateProgressBar();
@@ -130,7 +146,7 @@ public class ActivityTrackerFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 totalCarbon = 0.0;
-                TVResult.setText("Total Carbon: " + totalCarbon + " ppm");
+                TVResult.setText("Total Carbon: " + totalCarbon + " g");
                 ETInput.setText("");
                 updateProgressBar();
             }
@@ -140,16 +156,16 @@ public class ActivityTrackerFragment extends Fragment {
 
 
     private void updateProgressBar() {
-        double worldAverage = 421.0;
+        double worldAverage = 13700;
         int progress = (int) ((totalCarbon / worldAverage) * 100);
         progress = Math.min(progress, PBCarbon.getMax());
         PBCarbon.setProgress(progress);
-        TVProgress.setText("Progress: " + progress + "% out of 421ppm");
+        TVProgress.setText("Progress: " + progress + "% out of 13700g");
 
-        saveProgressToFirebase(progress);
+        saveProgressToFirebase(totalCarbon);
     }
 
-    private void saveProgressToFirebase(int progress) {
+    private void saveProgressToFirebase(double progress) {
         if (currentUser != null && databaseReference != null) {
             databaseReference.setValue(progress);
         }
@@ -157,13 +173,18 @@ public class ActivityTrackerFragment extends Fragment {
 
     private void loadProgressFromFirebase() {
         if (currentUser != null && databaseReference != null) {
-            databaseReference.get().addOnCompleteListener(task -> {
-                if (task.isSuccessful() && task.getResult() != null) {
-                    Integer savedProgress = task.getResult().getValue(Integer.class);
-                    if (savedProgress != null) {
-                        PBCarbon.setProgress(savedProgress);
-                        TVProgress.setText("Progress: " + savedProgress + "% out of 421ppm");
-                    }
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    totalCarbon = snapshot.getValue(Double.class);
+                    TVResult.setText("Total carbon : "+totalCarbon + " g");
+                    updateProgressBar();
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
                 }
             });
         }

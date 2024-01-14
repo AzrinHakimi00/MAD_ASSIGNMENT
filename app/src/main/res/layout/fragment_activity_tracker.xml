@@ -15,23 +15,13 @@
         android:text="Carbon Calculator"
         android:textSize="20dp"
         android:textStyle="bold"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.048" />
 
-    <!--    <Button-->
-<!--        android:id="@+id/BtnUserImpact"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:backgroundTint="#00BCD4"-->
-<!--        android:text="User Impact"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.787" />-->
 
     <ImageView
         android:id="@+id/imageView4"
@@ -61,6 +51,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.958" />
 
+    <ImageButton
+        android:id="@+id/infoBtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="36dp"
+        android:background="@drawable/transparentbg_whiteborder"
+        android:src="@drawable/question_mark"
+        app:layout_constraintBottom_toTopOf="@+id/TVResult"
+        app:layout_constraintStart_toEndOf="@+id/ETInput" />
+
     <Button
         android:id="@+id/Calculate"
         android:layout_width="120dp"
@@ -74,6 +74,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.718" />
+
+    <LinearLayout
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:translationZ="20dp"
+        android:background="#2e2e2e"
+        android:gravity="center|top"
+        android:visibility="invisible">
+
+        <WebView
+            android:id="@+id/carbonInfo"
+            android:layout_width="match_parent"
+            android:layout_height="600dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="#2e2e2e"
+            android:translationZ="1dp"
+            />
+
+        <Button
+            android:id="@+id/closeBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="close"
+            android:backgroundTint="@color/color3"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+
+
 
     <TextView
         android:id="@+id/TVProgress"
