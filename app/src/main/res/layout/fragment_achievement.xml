@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#2e2e2e"
+    android:background="@color/BGColor"
     android:gravity="center|top">
 
 
@@ -328,8 +328,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="72dp"
-            android:backgroundTint="#00BCD4"
+            android:backgroundTint="#D5F0C1"
             android:gravity="center"
+            android:textColor="@color/black"
             android:text="Share!" />
 
     </LinearLayout>

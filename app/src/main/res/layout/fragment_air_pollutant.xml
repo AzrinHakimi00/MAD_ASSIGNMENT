@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".HomePage.AirPollutant"
     android:orientation="vertical"
-    android:background="#2e2e2e"
+    android:background="@color/BGColor"
     android:gravity="top|center">
 
     <TextView
