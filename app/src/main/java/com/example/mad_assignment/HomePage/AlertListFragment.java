@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,9 +37,12 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -122,7 +126,7 @@ public class AlertListFragment extends Fragment {
                     public void onResponse(JSONObject response) {
                         try {
                             List<AlertFragment.WeatherEntry> weatherEntries = new ArrayList<>();
-                            List<AlertFragment.WeatherEntry> Alert = new ArrayList<>();
+                            ArrayList<AlertFragment.WeatherEntry> Alert = new ArrayList<>();
 
                             JSONObject jsonRootObject = new JSONObject(response.toString());
                             JSONArray weatherList = jsonRootObject.getJSONArray("data");
@@ -140,7 +144,7 @@ public class AlertListFragment extends Fragment {
                             }
 
                             for(AlertFragment.WeatherEntry entry:weatherEntries){
-                                if(entry.temperature >=30){
+                                if(entry.temperature >31){
                                     Alert.add(entry);
                                 }
                                 switch (entry.id){
@@ -186,35 +190,47 @@ public class AlertListFragment extends Fragment {
         recyclerView.setAdapter(alertAdapter);
     }
 
-    void getDuration(List<AlertFragment.WeatherEntry> alertlist) {
-        SimpleDateFormat sdf = new SimpleDateFormat("EEEE,ha dd-MM-yyyy", Locale.ENGLISH);
-        SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MM-yyyy");
-        int hours = 0;
+    void getDuration(ArrayList<AlertFragment.WeatherEntry> alertList) {
+        // Sort the alertList based on the timestamp
+        Collections.sort(alertList, new Comparator<AlertFragment.WeatherEntry>() {
+            @Override
+            public int compare(AlertFragment.WeatherEntry entry1, AlertFragment.WeatherEntry entry2) {
+                return entry1.time.compareTo(entry2.time);
+            }
+        });
 
-        for (int i = 0; i < alertlist.size() - 1; i++) {
-            String d1 = alertlist.get(i).getTime();
-            String d2 = alertlist.get(i + 1).getTime();
+        int hours = 1; // Initialize the duration to 1 hour
+        for (int i = 0; i < alertList.size() - 1; i++) {
+            AlertFragment.WeatherEntry currentAlert = alertList.get(i);
+            AlertFragment.WeatherEntry nextAlert = alertList.get(i + 1);
 
-            try {
-                Date date1 = sdf.parse(d1);
-                Date date2 = sdf.parse(d2);
-
-                if (sdf2.format(date1).equals(sdf2.format(date2))) {
-                    hours++;
-                    alertlist.get(i).setDuration(hours);
-                    alertlist.remove(i + 1);
-                    i--;
-                } else {
-                    hours = 0; // Reset the duration when dates are different
-                }
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
+            // Check if the alerts have the same type and time difference is 1 hour or less
+            if (currentAlert.getType().equals(nextAlert.getType()) && getTimeDifference(currentAlert.time, nextAlert.time) <= 1) {
+                hours++; // Increment duration
+                alertList.get(i + 1).setDuration(hours); // Set the duration for the next alert
+                alertList.remove(i); // Remove the current alert
+                i--;
+            } else {
+                hours = 1; // Reset the duration when type changes or the time difference is more than 1 hour
             }
         }
-
-        // Set duration for the last entry (if any)
-        if (!alertlist.isEmpty()) {
-            alertlist.get(alertlist.size() - 1).setDuration(hours);
-        }
     }
+
+    // Helper method to calculate time difference in hours
+    long getTimeDifference(String startTime, String endTime) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
+            Date startDate = format.parse(startTime);
+            Date endDate = format.parse(endTime);
+
+            long diffInMillis = endDate.getTime() - startDate.getTime();
+            return TimeUnit.MILLISECONDS.toHours(diffInMillis);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return -1; // Return -1 in case of an error
+    }
+
+
 }

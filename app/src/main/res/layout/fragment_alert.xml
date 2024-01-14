@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#2e2e2e"
-    android:orientation="vertical"
     android:gravity="center|top"
+    android:orientation="vertical"
     tools:context=".HomePage.AlertFragment">
 
 
@@ -14,10 +14,10 @@
         android:id="@+id/Alert_Header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/border"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
+        android:background="@drawable/border"
         android:fontFamily="@font/inriasansbold"
         android:text="WEATHER ALERT"
         android:textAlignment="center"
@@ -28,9 +28,8 @@
         android:id="@+id/Weather"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginTop="10dp"
         android:layout_margin="30dp"
-         />
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:id="@+id/Alert_Time"
@@ -56,44 +55,46 @@
 
     <TextView
         android:id="@+id/location"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:layout_width="323dp"
+        android:layout_height="57dp"
         android:layout_margin="10dp"
         android:fontFamily="@font/mulishfont"
         android:textAlignment="center"
-        android:textSize="14dp"/>
+        android:textColor="@color/white"
+        android:textSize="14dp"
+        app:autoSizeTextType="uniform" />
 
     <Button
         android:id="@+id/Alert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="LIST ALERTS"
-        android:layout_margin="30dp" />
+        android:layout_margin="30dp"
+        android:text="LIST ALERTS" />
 
     <TextView
         android:id="@+id/Message"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="92dp"
         android:layout_margin="20dp"
         android:background="@drawable/curve_corner_10dp"
+        android:backgroundTint="@color/color2"
+        android:fontFamily="@font/inriasansbold"
         android:paddingLeft="30dp"
         android:paddingTop="20dp"
         android:paddingRight="30dp"
         android:paddingBottom="20dp"
         android:text="There's no alert"
-        android:fontFamily="@font/inriasansbold"
-        android:backgroundTint="@color/color2"
-        android:textColor="@color/black"
         android:textAlignment="center"
-        android:textSize="15sp" />
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:autoSizeTextType="uniform" />
 
     <TextView
         android:id="@+id/Advice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="PLS STAY AT HOME FOR THE MEANTIME"
-        android:textStyle="italic"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:textStyle="italic" />
 
 </LinearLayout>

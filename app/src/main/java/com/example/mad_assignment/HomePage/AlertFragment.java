@@ -36,9 +36,12 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -139,7 +142,7 @@ public class AlertFragment extends Fragment {
                             }
 
                             for(AlertFragment.WeatherEntry entry:weatherEntries){
-                                if(entry.temperature>=30){
+                                if(entry.temperature>31){
                                     alertlist.add(entry);
                                 }
                                 switch (entry.id){
@@ -153,10 +156,11 @@ public class AlertFragment extends Fragment {
                                 }
                             }
                             if(!alertlist.isEmpty()) {
+                                getDuration((ArrayList<WeatherEntry>) alertlist);
                                 time1.setText(alertlist.get(0).getTime());
                                 message.setText(alertlist.get(0).getMessage());
                                 weather.setImageDrawable(alertlist.get(0).getIconDrawable(requireContext()));
-                                duration.setText("~"+alertlist.get(0).getDuration()+" hours");
+                                duration.setText("~"+alertlist.get(0).duration+" hours");
                             }else{
                                 time1.setText("");
                                 message.setText("Rest assure! Your place has no extreme weather for the next 5 days");
@@ -183,27 +187,39 @@ public class AlertFragment extends Fragment {
         public int id;
         public String time;
         public int duration;
-        public WeatherEntry(double temperature, int id,String time) {
+
+        public WeatherEntry(double temperature, int id, String time) {
             this.temperature = temperature;
             this.id = id;//502-504 heavyrain, 200-202,210-212,221,230-232 thunderstorm, 701,711,721,741 fog etc.
             this.time = time;
             this.duration = 1;
         }
 
-        String getType(){
-            if(temperature>=30){
-                return  "Blazing hot";
+        String getType() {
+            if (temperature > 31) {
+                return "Blazing hot";
             }
             switch (id) {
-                case 501:case 502: case 503: case 504:
+                case 501:
+                case 502:
+                case 503:
+                case 504:
                     return "Heavy rain";
-                case 200: case 201: case 202:
-                case 210: case 211: case 212:
-                case 221: case 230: case 231:
+                case 200:
+                case 201:
+                case 202:
+                case 210:
+                case 211:
+                case 212:
+                case 221:
+                case 230:
+                case 231:
                 case 232:
                     return "Thunderstorm";
-                case 701: case 711:
-                case 721: case 741:
+                case 701:
+                case 711:
+                case 721:
+                case 741:
                     return "Foggy";
                 default:
                     // You can throw an exception or return a default drawable
@@ -212,20 +228,31 @@ public class AlertFragment extends Fragment {
             }
         }
 
-        String getMessage(){
-            if(temperature>=30){
-                return  "Its going to be scorching outside! Drink plenty of water and stay hydrated!";
+        String getMessage() {
+            if (temperature > 31) {
+                return "Its going to be scorching outside! Drink plenty of water and stay hydrated!";
             }
             switch (id) {
-                case 501: case 502: case 503: case 504:
+                case 501:
+                case 502:
+                case 503:
+                case 504:
                     return "Beware! Anticipate substantial rainfall at your location. Please prepare an umbrella or raincoat before going outside!";
-                case 200: case 201: case 202:
-                case 210: case 211: case 212:
-                case 221: case 230: case 231:
+                case 200:
+                case 201:
+                case 202:
+                case 210:
+                case 211:
+                case 212:
+                case 221:
+                case 230:
+                case 231:
                 case 232:
-                    return "Uh oh! thunderstorm gonna bombarding your place. Avoid going outside for your own safety.";
-                case 701: case 711:
-                case 721: case 741:
+                    return "Uh oh! A thunderstorm gonna bombard your place soon. Avoid going outside for your own safety.";
+                case 701:
+                case 711:
+                case 721:
+                case 741:
                     return "Its gonna be hard to walk around outside. Watch out for your surrounding!";
                 default:
                     // You can throw an exception or return a default drawable
@@ -234,8 +261,8 @@ public class AlertFragment extends Fragment {
             }
         }
 
-        String getTime(){
-            try{
+        String getTime() {
+            try {
                 @SuppressLint("SimpleDateFormat") SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
                 Date date = inputFormat.parse(time);
 
@@ -243,31 +270,43 @@ public class AlertFragment extends Fragment {
                 @SuppressLint("SimpleDateFormat") SimpleDateFormat outputFormat = new SimpleDateFormat("EEEE, ha dd-MM-yyyy");
                 String outputDate = outputFormat.format(date);
                 return outputDate;
-            }catch (ParseException e){
+            } catch (ParseException e) {
                 e.printStackTrace();
             }
             return null;
         }
 
-        int setDuration(int duratio){
+        int setDuration(int duratio) {
             return this.duration = duratio;
         }
+
         @SuppressLint("UseCompatLoadingForDrawables")
         Drawable getIconDrawable(Context context) {
             Resources resources = context.getResources(); // Assuming this method is within an Activity or Context
-            if(temperature>=30){
-                return  resources.getDrawable(R.drawable.hot);
+            if (temperature > 31) {
+                return resources.getDrawable(R.drawable.hot);
             }
             switch (id) {
-                case 501: case 502: case 503: case 504:
+                case 501:
+                case 502:
+                case 503:
+                case 504:
                     return resources.getDrawable(R.drawable.heavyrain);
-                case 200: case 201: case 202:
-                case 210: case 211: case 212:
-                case 221: case 230: case 231:
+                case 200:
+                case 201:
+                case 202:
+                case 210:
+                case 211:
+                case 212:
+                case 221:
+                case 230:
+                case 231:
                 case 232:
                     return resources.getDrawable(R.drawable.thunderstorm);
-                case 701: case 711:
-                case 721: case 741:
+                case 701:
+                case 711:
+                case 721:
+                case 741:
                     return resources.getDrawable(R.drawable.foggy);
                 default:
                     // You can throw an exception or return a default drawable
@@ -275,42 +314,49 @@ public class AlertFragment extends Fragment {
                     return resources.getDrawable(R.drawable.border);
             }
         }
-        double getTemperature(){
+
+        double getTemperature() {
             return temperature;
         }
-
-        int getDuration() {
-            SimpleDateFormat sdf = new SimpleDateFormat("EEEE,ha dd-MM-yyyy", Locale.ENGLISH);
-            SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MM-yyyy");
-            int hours = 0;
-
-            for (int i = 0; i < alertlist.size() - 1; i++) {
-                String d1 = alertlist.get(i).getTime();
-                String d2 = alertlist.get(i + 1).getTime();
-                try {
-                    Date date1 = sdf.parse(d1);
-                    Date date2 = sdf.parse(d2);
-
-                    if (sdf2.format(date1).equals(sdf2.format(date2))) {
-                        hours++;
-                        alertlist.get(i).setDuration(hours);
-                        alertlist.remove(i + 1);
-                        i--;
-                    } else {
-                        hours = 0; // Reset the duration when dates are different
-                    }
-                } catch (ParseException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-
-            // Set duration for the last entry (if any)
-            if (!alertlist.isEmpty()) {
-                alertlist.get(alertlist.size() - 1).setDuration(hours);
-            }
-            return alertlist.get(0).duration;
-        }
-        // Add getters if needed
     }
 
+    void getDuration(ArrayList<AlertFragment.WeatherEntry> alertList) {
+        // Sort the alertList based on the timestamp
+        Collections.sort(alertList, new Comparator<WeatherEntry>() {
+            @Override
+            public int compare(AlertFragment.WeatherEntry entry1, AlertFragment.WeatherEntry entry2) {
+                return entry1.time.compareTo(entry2.time);
+            }
+        });
+
+        int hours = 1; // Initialize the duration to 1 hour
+        for (int i = 0; i < alertList.size() - 1; i++) {
+            AlertFragment.WeatherEntry currentAlert = alertList.get(i);
+            AlertFragment.WeatherEntry nextAlert = alertList.get(i + 1);
+
+            // Check if the alerts have the same type and time difference is 1 hour or less
+            if (currentAlert.id == nextAlert.id && getTimeDifference(currentAlert.time, nextAlert.time) <= 1) {
+                hours++; // Increment duration
+                alertList.get(i + 1).setDuration(hours); // Set the duration for the next alert
+                alertList.remove(i); // Remove the current alert
+                i--;
+            } else {
+                hours = 1; // Reset the duration when type changes or the time difference is more than 1 hour
+            }
+        }
+    }
+    long getTimeDifference(String startTime, String endTime) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
+            Date startDate = format.parse(startTime);
+            Date endDate = format.parse(endTime);
+
+            long diffInMillis = endDate.getTime() - startDate.getTime();
+            return TimeUnit.MILLISECONDS.toHours(diffInMillis);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return -1; // Return -1 in case of an error
+    }
 }
